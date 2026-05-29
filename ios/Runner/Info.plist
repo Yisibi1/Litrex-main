@@ -30,6 +30,16 @@
 				<string>com.googleusercontent.apps.765414309575-nk23hubu29gcql6tsc01qktmbbf89iv7</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>olibrary</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>olib</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
