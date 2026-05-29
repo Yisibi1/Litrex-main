@@ -234,7 +234,7 @@ class _CoinPurchaseScreenState extends State<CoinPurchaseScreen> {
                       ),
                       child: Row(
                         children: [
-                          Text('🪙', style: TextStyle(fontSize: 28)),
+                          Icon(Icons.monetization_on_rounded, size: 28, color: Color(0xFFF5A623)),
                           12.width,
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +327,7 @@ class _CoinPurchaseScreenState extends State<CoinPurchaseScreen> {
                                       color: Color(0xFFF5A623).withOpacity(0.15),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Center(child: Text('🪙', style: TextStyle(fontSize: 26))),
+                                    child: Center(child: Icon(Icons.monetization_on_rounded, size: 28, color: Color(0xFFF5A623))),
                                   ),
                                   16.width,
                                   Expanded(

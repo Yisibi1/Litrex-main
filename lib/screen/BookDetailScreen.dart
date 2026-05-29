@@ -212,7 +212,7 @@ class BookDetailScreenState extends State<BookDetailScreen> {
                             shape: BoxShape.circle,
                           ),
                           child: Center(
-                            child: Text("🪙", style: TextStyle(fontSize: 24)),
+                            child: Icon(Icons.monetization_on_rounded, size: 26, color: Color(0xFFF5A623)),
                           ),
                         ),
                         12.width,

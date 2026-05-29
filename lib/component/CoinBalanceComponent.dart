@@ -34,7 +34,7 @@ class CoinBalanceComponent extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("🪙", style: TextStyle(fontSize: 16)),
+              Icon(Icons.monetization_on_rounded, size: 18, color: Color(0xFFF5A623)),
               6.width,
               Text(
                 '${authStore.coins}',
