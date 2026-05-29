@@ -1,0 +1,17 @@
+import 'package:flutter/material.dart';
+
+extension Hex on Color {
+
+  /// Return true if given Color is dark
+  bool isDark() => getBrightness() < 128.0;
+
+  /// Return true if given Color is light
+  bool isLight() => !isDark();
+
+  /// Returns Brightness of give Color
+  double getBrightness() =>
+      (red * 299 + green * 587 + blue * 114) / 1000;
+
+  /// Returns Luminance of give Color
+  double getLuminance() => computeLuminance();
+}

@@ -1,0 +1,14 @@
+{
+  "addon_id": "com.booksfer.official",
+  "name": "Booksfer",
+  "version": "1.0",
+  "author": "Booksfer",
+  "description": "Booksfer kütüphanesindeki zengin kitap koleksiyonuna erişim sağlayan resmi eklenti.",
+  "icon": "https://booksfer.net/uploads/logo/logo_696a5da40ec8c4-21807742.svg",
+  "endpoints": {
+    "dashboard": "https://olibrary.space/booksfer_bridge.php?action=dashboard",
+    "search": "https://olibrary.space/booksfer_bridge.php?action=search&q=",
+    "category": "https://olibrary.space/booksfer_bridge.php?action=category&cat_id=",
+    "read": "https://olibrary.space/booksfer_bridge.php?action=read&id="
+  }
+}

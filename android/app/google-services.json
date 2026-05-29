@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "489459842491",
+    "project_id": "litrex-2025",
+    "storage_bucket": "litrex-2025.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489459842491:android:95ff154a7668b1e305989e",
+        "android_client_info": {
+          "package_name": "com.litrex.ebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489459842491-65imhu6vnkp2prd5l649jc6v09krfnc2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.litrex.ebook",
+            "certificate_hash": "d27bed30c2114236273e8d2dcee0931386b3b8d0"
+          }
+        },
+        {
+          "client_id": "489459842491-jb6st3qdvasdmvnjtopqreaeubvq5skt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVNmS9hl7Vxak4YBQ5bKzTi5VvqNLLXj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489459842491-jb6st3qdvasdmvnjtopqreaeubvq5skt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

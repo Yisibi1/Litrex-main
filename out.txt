@@ -1,0 +1,21 @@
+1145: <div class="dot" id="sdot"></div><span id="stxt">Yüklənir...</span>
+1203: <div class="sl" style="color:var(--ac)">Litrex-də var</div>
+1333: <div style="font-size:11px;color:var(--mu);margin-top:3px" id="scan-info-sub">Yüklənir...</div>
+1342: </svg>Hamısını Yüklə</button>
+1361: <option value="done">Yüklənib</option>
+1715: ${d.litrex_exists || d.manual_litrex ? '<span style="background:var(--ac);color:#000;padding:2px 6px;border-radius:4px;font-size:9px;font-weight:700">🚀 LITREX-DƏ VAR</span>' : ''}
+1736: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Yüklə</a>
+1942: stHtml = '<span class="add-btn done" style="background:var(--ac);color:#000;font-weight:700">✅ Litrex-də Var</span>';
+2018: btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Seçilənləri Yüklə (${scanSelected.size})`;
+2080: btn.innerHTML = '<span style="font-size:11px">⬇️ Yüklənir...</span>';
+2084: btn.innerHTML = '<span class="add-btn done">✅ Yükləndi · 📚 Analiz...</span>';
+2226: ${r.litrex_exists ? '<span style="background:var(--ac);color:#000;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700">🚀 Litrex-də Var</span>' : ''}
+2248: document.getElementById('modal-body').innerHTML = '<div style="text-align:center;padding:30px;color:var(--mu)">Yüklənir...</div>';
+2368: area.innerHTML = '<div style="text-align:center;padding:12px;color:var(--mu);font-size:12px">Yüklənir...</div>';
+2389: area.innerHTML = '<div style="text-align:center;padding:12px;color:var(--mu);font-size:12px">Yüklənir...</div>';
+2405: <button class="fetch-btn" onclick="document.getElementById('ea-photo-upload').click()" style="width:auto;padding:0 12px;background:var(--sur2);color:var(--tx)">📁 Yüklə</button>
+2715: <button class="fetch-btn" onclick="document.getElementById('ea-photo-upload').click()" style="width:auto;padding:0 12px;background:var(--sur2);color:var(--tx)">📁 Yüklə</button>
+2766: '<div style="text-align:center;padding:30px;color:var(--mu)">Yüklənir...</div>';
+3432: <!-- Yüklənir -->
+3445: <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--ac)">Toplu Yükləmə Ayarları (Hamısına tətbiq ediləcək):</div>
+3488: <button class="btn" onclick="markSelectedLitrex()" style="padding:7px 16px;font-size:13px">✔ Litrex-də Var İşarələ</button>

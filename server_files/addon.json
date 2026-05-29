@@ -1,0 +1,14 @@
+{
+  "addon_id": "com.community.public.bridge",
+  "name": "WTTPD (Wattpad)",
+  "version": "1.0",
+  "author": "Açık Kaynak Topluluğu",
+  "description": "Wattpad üzerindeki herkese açık internet içeriklerini indeksleyen bağımsız bir API eklentisi.",
+  "icon": "https://olibrary.space/icon.png",
+  "endpoints": {
+    "dashboard": "https://olibrary.space/bridge.php?action=dashboard",
+    "search": "https://olibrary.space/bridge.php?action=search&q=",
+    "category": "https://olibrary.space/bridge.php?action=category&cat_id=",
+    "read": "https://olibrary.space/bridge.php?action=read&id="
+  }
+}

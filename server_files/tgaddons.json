@@ -1,0 +1,14 @@
+{
+  "addon_id": "com.tgaddons.official",
+  "name": "TGAddons",
+  "version": "1.0",
+  "author": "TGAddons Topluluğu",
+  "description": "Telegram kanallarında paylaşılan zengin PDF kitap arşivine erişim sağlayan bağımsız eklenti.",
+  "icon": "https://olibrary.space/icon.png",
+  "endpoints": {
+    "dashboard": "https://olibrary.space/tgaddons_bridge.php?action=dashboard",
+    "search": "https://olibrary.space/tgaddons_bridge.php?action=search&q=",
+    "category": "https://olibrary.space/tgaddons_bridge.php?action=category&cat_id=",
+    "read": "https://olibrary.space/tgaddons_bridge.php?action=read&filename="
+  }
+}

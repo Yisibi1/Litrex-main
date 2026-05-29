@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLibrary - Açık Kaynaklı Medya Protokolü</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-glow {
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-6">
+
+    <!-- Header -->
+    <header class="w-full max-w-4xl flex justify-between items-center py-8">
+        <div class="text-2xl font-extrabold tracking-tight">O<span class="text-indigo-400">Library</span></div>
+        <a href="https://github.com" target="_blank" class="text-sm font-medium text-slate-300 hover:text-white transition">Geliştiriciler İçin</a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-4xl mt-12 flex flex-col items-center text-center">
+        <div class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-medium text-sm mb-6">
+            ✨ Sürüm v1.0.0 Yayında
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+            Evrensel İçerik <br>
+            <span class="gradient-text">Eklenti Protokolü</span>
+        </h1>
+        
+        <p class="text-lg text-slate-400 max-w-2xl mb-12 leading-relaxed">
+            OLibrary, açık internetteki halka açık verileri indeksleyip uyumlu medya okuyucularına aktaran bağımsız bir API köprüsüdür. Sistem kendi sunucularında hiçbir telif hakkına tabi içerik barındırmaz.
+        </p>
+
+        <!-- Addons Grid -->
+        <div class="grid md:grid-cols-2 gap-6 w-full max-w-4xl">
+            <!-- Addon Card 1: WTTPD -->
+            <div class="glass-card p-6 text-left relative overflow-hidden group flex flex-col justify-between">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl -mr-8 -mt-8 transition-all duration-500 group-hover:bg-purple-500/10"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white flex items-center">
+                                WTTPD (Wattpad)
+                                <span class="ml-2.5 px-2 py-0.5 text-[10px] font-bold bg-green-500/20 text-green-400 rounded uppercase tracking-wider">Demo Aktif</span>
+                            </h2>
+                            <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+                                Açık internet platformlarındaki (örn: Wattpad) herkese açık, ücretsiz kullanıcı içeriklerini (UGC) yapılandırılmış metin formatına çeviren örnek bir API eklentisi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 mt-auto">
+                    <div class="bg-black/30 rounded-xl p-3 flex items-center justify-between mb-4 border border-white/5">
+                        <code class="text-indigo-300 text-xs font-mono truncate mr-2" id="addon-url">https://olibrary.space/addon.json</code>
+                        <button onclick="copyToClipboard('addon-url')" class="text-slate-400 hover:text-white transition p-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10" title="Kopyala">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+                    </div>
+
+                    <a href="olib://addon?url=https://olibrary.space/addon.json" class="btn-glow w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-xl flex justify-center items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Uygulamaya Ekle
+                    </a>
+                </div>
+            </div>
+
+            <!-- Addon Card 2: Booksfer -->
+            <div class="glass-card p-6 text-left relative overflow-hidden group flex flex-col justify-between">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl -mr-8 -mt-8 transition-all duration-500 group-hover:bg-indigo-500/10"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white flex items-center">
+                                Booksfer
+                                <span class="ml-2.5 px-2 py-0.5 text-[10px] font-bold bg-purple-500/20 text-purple-400 rounded uppercase tracking-wider">Resmi Aktif</span>
+                            </h2>
+                            <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+                                Booksfer zengin e-kitap ve PDF kütüphanesindeki binlerce kitabı şifreli, güvenli bağlantıyla uygulamanıza entegre eden resmi API eklentisi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 mt-auto">
+                    <div class="bg-black/30 rounded-xl p-3 flex items-center justify-between mb-4 border border-white/5">
+                        <code class="text-indigo-300 text-xs font-mono truncate mr-2" id="booksfer-url">https://olibrary.space/booksfer_addon.json</code>
+                        <button onclick="copyToClipboard('booksfer-url')" class="text-slate-400 hover:text-white transition p-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10" title="Kopyala">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+                    </div>
+
+                    <a href="olib://addon?url=https://olibrary.space/booksfer_addon.json" class="btn-glow w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2.5 px-4 rounded-xl flex justify-center items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Uygulamaya Ekle
+                    </a>
+                </div>
+            </div>
+
+            <!-- Addon Card 3: TGAddons -->
+            <div class="glass-card p-6 text-left relative overflow-hidden group flex flex-col justify-between">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl -mr-8 -mt-8 transition-all duration-500 group-hover:bg-cyan-500/10"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white flex items-center">
+                                TGAddons
+                                <span class="ml-2.5 px-2 py-0.5 text-[10px] font-bold bg-blue-500/20 text-blue-400 rounded uppercase tracking-wider">Topluluk</span>
+                            </h2>
+                            <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+                                Halka açık sosyal ağlarda ve bağımsız topluluk gruplarında paylaşılan binlerce PDF ve e-kitabı doğrudan uygulamanızda okumanızı sağlayan açık kaynaklı topluluk eklentisi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 mt-auto pt-4">
+                    <div class="bg-black/30 rounded-xl p-3 flex items-center justify-between mb-4 border border-white/5">
+                        <code class="text-indigo-300 text-xs font-mono truncate mr-2" id="tgaddons-url">https://olibrary.space/tgaddons.json</code>
+                        <button onclick="copyToClipboard('tgaddons-url')" class="text-slate-400 hover:text-white transition p-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10" title="Kopyala">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+                    </div>
+
+                    <a href="olib://addon?url=https://olibrary.space/tgaddons.json" class="btn-glow w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 px-4 rounded-xl flex justify-center items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Uygulamaya Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mt-16 text-left w-full max-w-4xl">
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                <div class="w-10 h-10 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="font-bold text-white mb-2">Güvenli & Bağımsız</h3>
+                <p class="text-sm text-slate-400">OLibrary herhangi bir içerik barındırmaz. Sadece herkese açık köprüleri (manifest) indeksler. Telif haklarına saygılı, yasal ve bağımsızdır.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                <div class="w-10 h-10 bg-purple-500/20 text-purple-400 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+                <h3 class="font-bold text-white mb-2">Açık Spesifikasyon</h3>
+                <p class="text-sm text-slate-400">Manifest ve eklenti standardımız tamamen açık kaynaklıdır. Geliştiriciler kendi API köprülerini veya halka açık kaynaklarını kolayca uyumlu okuyuculara bağlayabilir.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                <div class="w-10 h-10 bg-pink-500/20 text-pink-400 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="font-bold text-white mb-2">Süper Hızlı Entegrasyon</h3>
+                <p class="text-sm text-slate-400">Kullanıcılar tek bir tıkla veya manifest linkini kopyalayarak saniyeler içinde yeni veri köprülerini medya oynatıcılarına ekleyebilirler.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Developer Protocol Section -->
+    <section class="w-full max-w-4xl mt-20">
+        <h2 class="text-2xl font-bold text-white mb-2">Geliştirici Protokolü</h2>
+        <p class="text-sm text-slate-400 mb-6">Kendi API köprünüzü uyumlu medya okuyucularına bağlamak için aşağıdaki <code class="text-indigo-400">olib://</code> URI şemasını kullanın.</p>
+        <div class="glass-card p-6">
+            <p class="text-xs text-slate-500 uppercase tracking-widest mb-3 font-semibold">Eklenti Ekleme — Deep Link Formatı</p>
+            <div class="bg-black/40 rounded-xl p-4 font-mono text-sm text-green-400 border border-white/5 mb-4">
+                olib://addon?url=https://siteniniz.com/addon.json
+            </div>
+            <p class="text-slate-400 text-sm">Bu URI şeması, <span class="text-white font-medium">olib://</span> protokolunu destekleyen medya okuyucularında tek tıkla eklenti yüklemeye olanak tanır. Kullanıcı bağlantıya tıkladığında uygulama açılır ve manifest bağlantısını onaylamasını ister.</p>
+            <div class="mt-4 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-sm text-indigo-300">
+                ✦ &nbsp;Manifest dosyanız (<code>addon.json</code>) standart OLibrary şemasına uygun olmalıdır. Demo için <a href="https://olibrary.space/addon.json" target="_blank" class="underline hover:text-white">bu dosyayı</a> inceleyebilirsiniz.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-4xl mt-24 py-8 border-t border-white/10 text-center flex flex-col md:flex-row items-center justify-between">
+        <p class="text-sm text-slate-500">© 2026 OLibrary Project. Sadece bir eklenti dizinidir.</p>
+        <div class="flex gap-4 mt-4 md:mt-0">
+            <span class="text-sm text-slate-400">Açık Kaynak Standartı</span>
+            <span class="text-sm text-slate-400">Kullanım Şartları</span>
+        </div>
+    </footer>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        <div class="bg-slate-800 border border-white/10 rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="preview-modal-content">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-slate-800/50">
+                <h3 class="font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    Eklenti İçeriği <span id="preview-addon-name" class="text-xs font-normal text-slate-400 ml-2"></span>
+                </h3>
+                <button onclick="closePreview()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto" id="preview-loading">
+                <div class="flex flex-col items-center justify-center py-12 text-slate-400">
+                    <svg class="animate-spin h-8 w-8 text-indigo-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    İçerikler yükleniyor...
+                </div>
+            </div>
+            <div class="p-6 overflow-y-auto hidden" id="preview-list">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="preview-grid">
+                    <!-- Books will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl border border-white/10 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+        Bağlantı kopyalandı!
+    </div>
+
+    <script>
+        function copyToClipboard(id) {
+            const urlText = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(urlText).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('opacity-0');
+                }, 2500);
+            });
+        }
+
+        async function previewAddon(addonFile) {
+            const modal = document.getElementById('preview-modal');
+            const content = document.getElementById('preview-modal-content');
+            const loading = document.getElementById('preview-loading');
+            const list = document.getElementById('preview-list');
+            const grid = document.getElementById('preview-grid');
+            const nameEl = document.getElementById('preview-addon-name');
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            loading.classList.remove('hidden');
+            list.classList.add('hidden');
+            grid.innerHTML = '';
+            nameEl.textContent = '- Yükleniyor...';
+
+            try {
+                // 1. Fetch manifest
+                const manifest = await fetch(`https://olibrary.space/${addonFile}`).then(r => r.json());
+                nameEl.textContent = `- ${manifest.name}`;
+                
+                // 2. Fetch the first category's source url
+                if (!manifest.categories || manifest.categories.length === 0) throw new Error("Kategori bulunamadı");
+                const sourceUrl = manifest.categories[0].source_url;
+                
+                // 3. Fetch books
+                const books = await fetch(sourceUrl).then(r => r.json());
+                
+                // 4. Render books
+                const itemsToRender = books.slice(0, 12);
+                grid.innerHTML = itemsToRender.map(b => `
+                    <div class="bg-slate-900 border border-white/5 rounded-xl overflow-hidden flex flex-col group relative">
+                        <div class="h-40 w-full bg-slate-800 relative overflow-hidden">
+                            <img src="${b.cover}" alt="${b.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=200&auto=format&fit=crop&q=60'">
+                        </div>
+                        <div class="p-3 bg-slate-900 relative z-10 -mt-2">
+                            <h4 class="text-[13px] font-bold text-white line-clamp-1">${b.title}</h4>
+                            <p class="text-[10px] text-slate-400 mt-1 line-clamp-1">${b.author || 'Anonim'}</p>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (e) {
+                grid.innerHTML = `<div class="col-span-full text-center text-red-400 py-8 text-sm">İçerikler yüklenirken hata oluştu veya bağlantı reddedildi.</div>`;
+            }
+
+            loading.classList.add('hidden');
+            list.classList.remove('hidden');
+        }
+
+        function closePreview() {
+            const modal = document.getElementById('preview-modal');
+            const content = document.getElementById('preview-modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.add('scale-95');
+        }
+    </script>
+</body>
+</html>
