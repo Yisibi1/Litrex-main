@@ -88,5 +88,7 @@
 	<true/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Bu tətbiq istifadəçi təcrübəsini inkişaf etdirmək və reklamları optimallaşdırmaq üçün bəzən məkan məlumatlarına ehtiyac duya bilər.</string>
 </dict>
 </plist>
