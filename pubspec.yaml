@@ -107,4 +107,4 @@ flutter_icons:
   android: false
   ios: true
   remove_alpha_ios: true
-  image_path: "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+  image_path: "asset/litrex_logo.png"
