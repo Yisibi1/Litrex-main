@@ -243,6 +243,26 @@ Future<AuthResponse> googleLogin({
   );
   return AuthResponse.fromJson(await handleResponse(response));
 }
+
+/// Apple Giriş
+Future<AuthResponse> appleLogin({
+  required String email,
+  required String displayName,
+  required String appleId,
+  String? deviceId,
+}) async {
+  final response = await buildHttpResponse(
+    'auth/apple_login.php',
+    method: HttpMethod.POST,
+    request: {
+      'email': email,
+      'name': displayName,
+      'apple_id': appleId,
+      if (deviceId != null) 'device_id': deviceId,
+    },
+  );
+  return AuthResponse.fromJson(await handleResponse(response));
+}
 /// Cihaz Sıfırlama Kontrolü
 Future<Map<String, dynamic>> checkDeviceReset({
   required String deviceId,

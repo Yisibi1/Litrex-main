@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../main.dart';
 import '../../network/AuthApis.dart';
 import '../../utils/Extensions/AppTextField.dart';
@@ -176,9 +177,38 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
     }
   }
 
-  void _handleAppleLogin() {
-    toast(language.lblComingSoon);
-  }
+  Future<void> _handleAppleLogin() async {
+    setState(() => isLoading = true);
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
+      );
+      String? deviceId = await _getDeviceId();
+      String email = credential.email ?? '${credential.userIdentifier}@apple.id';
+      String displayName = credential.givenName != null ? '${credential.givenName} ${credential.familyName ?? ''}'.trim() : 'Apple User';
+      final response = await appleLogin(email: email, displayName: displayName, appleId: credential.userIdentifier ?? '', deviceId: deviceId);
+      if (response.success == true && response.user != null) {
+        if (response.user?.status == 'banned') {
+          toast(language.lblAccountSuspended);
+          return;
+        }
+        await authStore.setUser(response.user);
+        await authStore.setAuthToken(response.token);
+        await authStore.setLoggedIn(true);
+        toast(language.lblLoginSuccess);
+        if (getStringListAsync(chooseTopicList) != null) DashboardScreen().launch(context, isNewTask: true);
+        else ChooseTopicScreen(isVisibleBack: false).launch(context, isNewTask: true);
+      } else {
+        toast(response.message ?? language.lblLoginFailed);
+      }
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('canceled')) toast('Giris iptal edildi.');
+      else toast("Apple giris hatasi: ${e.toString()}");
+    } finally {
+      setState(() => isLoading = false);
+    }
+  } //
 
   @override
   Widget build(BuildContext context) {
@@ -504,3 +534,6 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
     );
   }
 }
+
+
+
