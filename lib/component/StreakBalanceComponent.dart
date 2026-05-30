@@ -45,7 +45,7 @@ class StreakBalanceComponent extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("🔥", style: TextStyle(fontSize: 16, color: streak > 0 ? null : Colors.grey)),
+                Icon(Icons.local_fire_department_rounded, size: 18, color: streak > 0 ? Colors.orange : Colors.grey),
                 6.width,
                 Text(
                   '$streak',

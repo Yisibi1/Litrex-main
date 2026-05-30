@@ -289,7 +289,7 @@ class HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("🔥", style: TextStyle(fontSize: 60)),
+                      Icon(Icons.local_fire_department_rounded, size: 60, color: Colors.orange),
                       16.height,
                       Text("Tebrikler!", style: boldTextStyle(size: 24)),
                       12.height,
