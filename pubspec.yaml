@@ -104,7 +104,7 @@ flutter:
     - asset/flag/
 
 flutter_icons:
-  android: true
+  android: false
   ios: true
   remove_alpha_ios: true
-  image_path: "asset/ic_logo.png"
+  image_path: "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
