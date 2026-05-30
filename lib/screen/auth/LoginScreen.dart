@@ -410,15 +410,7 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
                               isGoogle: true,
                             ),
                           ),
-                          /*SizedBox(width: 12),
-                          Expanded(
-                            child: _buildSocialButton(
-                              icon: Icons.apple,
-                              label: 'Apple',
-                              onTap: _handleAppleLogin,
-                              isGoogle: false,
-                            ),
-                          ),*/
+                          if (Platform.isIOS || Platform.isMacOS) ...[ SizedBox(width: 12), Expanded( child: _buildSocialButton( icon: Icons.apple, label: 'Apple', onTap: _handleAppleLogin, isGoogle: false, ), ), ]
                         ],
                       ),
                       
@@ -534,6 +526,7 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
     );
   }
 }
+
 
 
 
