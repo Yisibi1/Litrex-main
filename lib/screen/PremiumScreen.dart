@@ -33,7 +33,7 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
 
   // Google Play Console Product IDs
   // Google Play Console Product IDs
-  final Set<String> _kIds = {'premium_monthly', 'premium_quarterly', 'android.test.purchased'};
+  final Set<String> _kIds = {'litrex_premium_monthly', 'litrex_premium_quarterly', 'android.test.purchased'};
 
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
