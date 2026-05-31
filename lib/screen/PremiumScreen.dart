@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -33,7 +34,7 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
 
   // Google Play Console Product IDs
   // Google Play Console Product IDs
-  final Set<String> _kIds = {'litrex_premium_monthly', 'litrex_premium_quarterly', 'android.test.purchased'};
+  final Set<String> _kIds = Platform.isIOS ? {'litrex_premium_monthly', 'litrex_premium_quarterly'} : {'premium_monthly', 'premium_quarterly', 'android.test.purchased'};
 
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
