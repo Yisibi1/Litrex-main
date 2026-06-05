@@ -13,6 +13,7 @@ import '../utils/Extensions/text_styles.dart';
 import '../utils/colors.dart';
 import '../utils/Extensions/shared_pref.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../utils/constant.dart';
 
 /// Jeton satın alma ekranı.
 /// Paketler admin panelden gelir (SKU, coin miktarı); fiyat Google Play'den çekilir.
