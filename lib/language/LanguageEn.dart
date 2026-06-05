@@ -28,6 +28,9 @@ class LanguageEn extends BaseLanguage {
   String get lblTermsCondition => "Terms & Conditions";
 
   @override
+  String get lblTermsOfUseEula => "Terms & Conditions (EULA)";
+
+  @override
   String get lblNoDataFound => "No Data Found";
 
   @override

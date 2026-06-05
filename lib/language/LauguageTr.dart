@@ -28,6 +28,9 @@ class LanguageTr extends BaseLanguage {
   String get lblTermsCondition => "Şartlar ve Koşullar";
 
   @override
+  String get lblTermsOfUseEula => "Kullanım Şartları (EULA)";
+
+  @override
   String get lblNoDataFound => "Veri bulunamadı";
 
   @override

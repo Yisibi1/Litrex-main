@@ -29,6 +29,9 @@ class LanguageAf extends BaseLanguage {
   String get lblTermsCondition => "terme en voorwaardes";
 
   @override
+  String get lblTermsOfUseEula => "terme en voorwaardes (EULA)";
+
+  @override
   String get lblNoDataFound => "Geen data is gevind nie";
 
   @override

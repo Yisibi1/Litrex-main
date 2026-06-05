@@ -29,6 +29,9 @@ class LanguageAr extends BaseLanguage {
   String get lblTermsCondition => "البنود و الظروف";
 
   @override
+  String get lblTermsOfUseEula => "البنود و الظروف (EULA)";
+
+  @override
   String get lblNoDataFound => "لاتوجد بيانات";
 
   @override

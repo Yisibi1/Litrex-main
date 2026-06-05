@@ -12,6 +12,8 @@ import '../utils/Extensions/string_extensions.dart';
 import '../utils/Extensions/text_styles.dart';
 import '../utils/colors.dart';
 import '../utils/Extensions/shared_pref.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 /// Jeton satın alma ekranı.
 /// Paketler admin panelden gelir (SKU, coin miktarı); fiyat Google Play'den çekilir.
 class CoinPurchaseScreen extends StatefulWidget {
@@ -404,6 +406,29 @@ class _CoinPurchaseScreenState extends State<CoinPurchaseScreen> {
                       ],
                     ),
                   ),
+                  24.height,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          final url = Uri.parse("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/");
+                          if (await canLaunchUrl(url)) await launchUrl(url);
+                        },
+                        child: Text(language.lblTermsOfUseEula, style: secondaryTextStyle(color: Colors.grey, size: 10, decoration: TextDecoration.underline)),
+                      ),
+                      16.width,
+                      GestureDetector(
+                        onTap: () async {
+                          final urlString = getStringAsync(PRIVACY_POLICY_PREF);
+                          final url = Uri.parse(urlString.isNotEmpty ? urlString : "https://litresfer.com/privacy.html"); 
+                          if (await canLaunchUrl(url)) await launchUrl(url);
+                        },
+                        child: Text(language.lblPrivacyPolicy, style: secondaryTextStyle(color: Colors.grey, size: 10, decoration: TextDecoration.underline)),
+                      ),
+                    ],
+                  ),
+                  16.height,
                 ],
               ),
             ),

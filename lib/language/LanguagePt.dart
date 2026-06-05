@@ -28,6 +28,9 @@ class LanguagePt extends BaseLanguage {
   String get lblTermsCondition => "termos e Condições";
 
   @override
+  String get lblTermsOfUseEula => "termos e Condições (EULA)";
+
+  @override
   String get lblNoDataFound => "Nenhum dado encontrado";
 
   @override

@@ -12,6 +12,7 @@ abstract class BaseLanguage {
   String get lblAboutUs;
   String get lblPrivacyPolicy;
   String get lblTermsCondition;
+  String get lblTermsOfUseEula;
   String get lblNoDataFound;
   String get lblNoInternet;
   String get lblRateUs;

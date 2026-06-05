@@ -13,6 +13,7 @@ import '../../utils/Extensions/text_styles.dart';
 import '../../utils/Extensions/Commons.dart';
 import '../../utils/Extensions/string_extensions.dart';
 import '../../utils/Extensions/int_extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PremiumScreen extends StatefulWidget {
   static String tag = '/PremiumScreen';
@@ -433,6 +434,28 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
                            "Satın Alımları Geri Yükle",
                            style: secondaryTextStyle(color: Colors.amber.withOpacity(0.8), decoration: TextDecoration.underline),
                          ),
+                       ),
+                       8.height,
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           GestureDetector(
+                             onTap: () async {
+                               final url = Uri.parse("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/");
+                               if (await canLaunchUrl(url)) await launchUrl(url);
+                             },
+                             child: Text(language.lblTermsOfUseEula, style: secondaryTextStyle(color: Colors.white54, size: 10, decoration: TextDecoration.underline)),
+                           ),
+                           16.width,
+                           GestureDetector(
+                             onTap: () async {
+                               final urlString = getStringAsync(PRIVACY_POLICY_PREF);
+                               final url = Uri.parse(urlString.isNotEmpty ? urlString : "https://litresfer.com/privacy.html"); 
+                               if (await canLaunchUrl(url)) await launchUrl(url);
+                             },
+                             child: Text(language.lblPrivacyPolicy, style: secondaryTextStyle(color: Colors.white54, size: 10, decoration: TextDecoration.underline)),
+                           ),
+                         ],
                        ),
                     ],
                   ),

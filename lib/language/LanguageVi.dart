@@ -28,6 +28,9 @@ class LanguageVi extends BaseLanguage {
   String get lblTermsCondition => "Ði?u kho?n và di?u ki?n";
 
   @override
+  String get lblTermsOfUseEula => "Ði?u kho?n và di?u ki?n (EULA)";
+
+  @override
   String get lblNoDataFound => "Không tìm th?y d? li?u nào";
 
   @override
