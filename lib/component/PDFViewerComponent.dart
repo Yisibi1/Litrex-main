@@ -7,6 +7,8 @@ import '../utils/Extensions/Widget_extensions.dart';
 import '../utils/Extensions/context_extensions.dart';
 import '../utils/Extensions/text_styles.dart';
 import '../utils/Extensions/decorations.dart';
+import '../utils/Extensions/int_extensions.dart';
+import '../utils/Extensions/Constants.dart';
 import '../utils/Extensions/Commons.dart';
 import '../utils/Extensions/string_extensions.dart';
 import '../utils/Extensions/shared_pref.dart';
@@ -92,7 +94,6 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
 
     /// 🔥 PDF yeniden açıldığında son kaldığın sayfaya otomatik gider
     String key = widget.fileBytes != null ? "local_${widget.title}" : widget.url;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     int? lastPage = prefs.getInt("last_page_$key"); 
 
     Future.delayed(Duration(seconds: 1), () {
