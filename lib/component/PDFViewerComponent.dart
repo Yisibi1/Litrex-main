@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';      // <<< SON SAYFA KAYDI İÇİN
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/Extensions/Widget_extensions.dart';
+import '../utils/Extensions/context_extensions.dart';
+import '../utils/Extensions/text_styles.dart';
+import '../utils/Extensions/decorations.dart';
 import '../utils/Extensions/Commons.dart';
 import '../utils/Extensions/string_extensions.dart';
 import '../utils/Extensions/shared_pref.dart';
@@ -44,6 +47,23 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
   PdfViewerController? _pdfViewerController;
   OverlayEntry? _overlayEntry;
   int _lastAdShownPage = 0; // Son reklam gösterilən səhifə
+
+  String _readingTheme = 'light';
+  PdfScrollDirection _scrollDirection = PdfScrollDirection.vertical;
+
+  static const ColorFilter _darkFilter = ColorFilter.matrix(<double>[
+    -1, 0, 0, 0, 255,
+    0, -1, 0, 0, 255,
+    0, 0, -1, 0, 255,
+    0, 0, 0, 1, 0,
+  ]);
+
+  static const ColorFilter _sepiaFilter = ColorFilter.matrix(<double>[
+    0.393, 0.769, 0.189, 0, 0,
+    0.349, 0.686, 0.168, 0, 0,
+    0.272, 0.534, 0.131, 0, 0,
+    0, 0, 0, 1, 0,
+  ]);
   
   // Anti-Offline: internet yoxlama
   bool _isOffline = false;
@@ -58,6 +78,11 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
   Future<void> init() async {
     print("PDF Path=>${widget.url}");
     _pdfViewerController = PdfViewerController();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _readingTheme = prefs.getString('pdf_reading_theme') ?? 'light';
+    String savedScroll = prefs.getString('pdf_scroll_direction') ?? 'vertical';
+    _scrollDirection = savedScroll == 'horizontal' ? PdfScrollDirection.horizontal : PdfScrollDirection.vertical;
 
     // Jetonla açılıb interstitial reklam göstəriləcəksə, hazırla
     if (widget.isUnlockedWithCoins) {
@@ -158,6 +183,135 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
     super.dispose();
   }
 
+  void _showReadingSettingsBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setBottomSheetState) {
+            return Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: context.cardColor,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5), borderRadius: radius(10)),
+                    ),
+                  ),
+                  20.height,
+                  Text("Oxuma Rejimi", style: boldTextStyle(size: 16)),
+                  16.height,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildThemeOption('light', 'Light', Colors.white, Colors.black, setBottomSheetState),
+                      _buildThemeOption('sepia', 'Sepia', Color(0xFFF4ECD8), Colors.black, setBottomSheetState),
+                      _buildThemeOption('dark', 'Dark', Color(0xFF1E1E1E), Colors.white, setBottomSheetState),
+                    ],
+                  ),
+                  24.height,
+                  Text("Sürüşdürmə Yönü", style: boldTextStyle(size: 16)),
+                  16.height,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: context.dividerColor.withOpacity(0.1),
+                      borderRadius: radius(12),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () async {
+                              _scrollDirection = PdfScrollDirection.vertical;
+                              setBottomSheetState((){});
+                              setState((){});
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              prefs.setString('pdf_scroll_direction', 'vertical');
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                color: _scrollDirection == PdfScrollDirection.vertical ? primaryColor : Colors.transparent,
+                                borderRadius: radius(12),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text("Aşağı/Yuxarı", style: boldTextStyle(color: _scrollDirection == PdfScrollDirection.vertical ? Colors.white : textPrimaryColorGlobal)),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () async {
+                              _scrollDirection = PdfScrollDirection.horizontal;
+                              setBottomSheetState((){});
+                              setState((){});
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              prefs.setString('pdf_scroll_direction', 'horizontal');
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                color: _scrollDirection == PdfScrollDirection.horizontal ? primaryColor : Colors.transparent,
+                                borderRadius: radius(12),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text("Sağa/Sola", style: boldTextStyle(color: _scrollDirection == PdfScrollDirection.horizontal ? Colors.white : textPrimaryColorGlobal)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  20.height,
+                ],
+              ),
+            );
+          }
+        );
+      }
+    );
+  }
+
+  Widget _buildThemeOption(String themeKey, String name, Color bgColor, Color textColor, StateSetter setBottomSheetState) {
+    bool isSelected = _readingTheme == themeKey;
+    return InkWell(
+      onTap: () async {
+        _readingTheme = themeKey;
+        setBottomSheetState((){});
+        setState((){});
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('pdf_reading_theme', themeKey);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: radius(12),
+          border: Border.all(color: isSelected ? primaryColor : Colors.grey.withOpacity(0.3), width: isSelected ? 2 : 1),
+        ),
+        child: Text(name, style: boldTextStyle(color: textColor)),
+      ),
+    );
+  }
+
+  Widget _buildFilteredViewer(Widget viewer) {
+    if (_readingTheme == 'dark') {
+      return Container(color: Colors.black, child: ColorFiltered(colorFilter: _darkFilter, child: viewer));
+    } else if (_readingTheme == 'sepia') {
+      return Container(color: Color(0xFFF4ECD8), child: ColorFiltered(colorFilter: _sepiaFilter, child: viewer));
+    }
+    return viewer;
+  }
+
   /// 🛡️ Offline bloklama overlay-i
   Widget _buildOfflineBlocker() {
     return Container(
@@ -229,21 +383,28 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(widget.title, textSize: 18, color: primaryColor, textColor: Colors.white, showBack: true),
+      appBar: appBarWidget(widget.title, textSize: 18, color: primaryColor, textColor: Colors.white, showBack: true, actions: [
+        IconButton(
+          icon: Icon(Icons.settings, color: Colors.white),
+          onPressed: () {
+            _showReadingSettingsBottomSheet();
+          },
+        )
+      ]),
       bottomNavigationBar: mWebBannerAds == '1' ? showBannerAds() : SizedBox(),
 
       body: Stack(
         children: [
           // PDF Viewer
           widget.fileBytes != null
-            ? SfPdfViewer.memory(
+            ? _buildFilteredViewer(SfPdfViewer.memory(
                 widget.fileBytes!,
                 key: _pdfViewerKey,
                 controller: _pdfViewerController,
                 otherSearchTextHighlightColor: primaryColor,
                 enableTextSelection: true,
                 pageLayoutMode: PdfPageLayoutMode.continuous,
-                scrollDirection: PdfScrollDirection.vertical,
+                scrollDirection: _scrollDirection,
                 canShowPaginationDialog: true,
                 canShowScrollStatus: true,
                 onPageChanged: (PdfPageChangedDetails details) async {
@@ -264,15 +425,15 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
                 onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
                   toast(details.description);
                 },
-              )
-            : SfPdfViewer.network(
+              ))
+            : _buildFilteredViewer(SfPdfViewer.network(
                 widget.url.validate(),
                 key: _pdfViewerKey,
                 controller: _pdfViewerController,
                 otherSearchTextHighlightColor: primaryColor,
                 enableTextSelection: true,
                 pageLayoutMode: PdfPageLayoutMode.continuous,
-                scrollDirection: PdfScrollDirection.vertical,
+                scrollDirection: _scrollDirection,
                 canShowPaginationDialog: true,
                 canShowScrollStatus: true,
                 onPageChanged: (PdfPageChangedDetails details) async {
@@ -293,7 +454,7 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
                 onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
                   toast(details.description);
                 },
-              ),
+              )),
 
           // 🛡️ Anti-Offline Overlay (yalnız jetonla açılan kitablarda)
           if (widget.isUnlockedWithCoins && _isOffline)
