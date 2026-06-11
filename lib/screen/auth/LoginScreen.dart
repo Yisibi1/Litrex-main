@@ -218,8 +218,11 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
     
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        behavior: HitTestBehavior.opaque,
+        child: Stack(
+          children: [
           // Gradient Background
           Container(
             decoration: BoxDecoration(
@@ -446,6 +449,7 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
             ),
           ),
         ],
+      ),
       ),
     );
   }

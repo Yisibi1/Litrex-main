@@ -236,8 +236,11 @@ Future<void> _handleGoogleRegister() async {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        behavior: HitTestBehavior.opaque,
+        child: Stack(
+          children: [
           // Gradient Background
           Container(
             decoration: BoxDecoration(
@@ -355,6 +358,7 @@ Future<void> _handleGoogleRegister() async {
             ),
           ),
         ],
+      ),
       ),
     );
   }
