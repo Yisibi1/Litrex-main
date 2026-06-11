@@ -514,11 +514,13 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: isGoogle ? 28 : 22,
-              color: isGoogle ? Colors.red : (appStore.isDarkModeOn ? Colors.white : Colors.black),
-            ),
+            isGoogle
+                ? Image.asset('asset/ic_google.png', width: 24, height: 24)
+                : Icon(
+                    icon,
+                    size: 24,
+                    color: appStore.isDarkModeOn ? Colors.white : Colors.black,
+                  ),
             SizedBox(width: 8),
             Text(
               label,

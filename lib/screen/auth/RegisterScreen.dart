@@ -3,6 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../main.dart';
 
 import '../../network/AuthApis.dart';
@@ -168,6 +169,39 @@ class RegisterScreenState extends State<RegisterScreen>
       }
     } catch (e) {
       toast(e.toString());
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
+
+  Future<void> _handleAppleRegister() async {
+    setState(() => isLoading = true);
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
+      );
+      String? deviceId = await _getDeviceId();
+      String email = credential.email ?? '${credential.userIdentifier}@apple.id';
+      String displayName = credential.givenName != null ? '${credential.givenName} ${credential.familyName ?? ''}'.trim() : 'Apple User';
+      final response = await appleLogin(email: email, displayName: displayName, appleId: credential.userIdentifier ?? '', deviceId: deviceId);
+      if (response.success == true && response.user != null) {
+        if (response.user?.status == 'banned') {
+          toast(language.lblAccountSuspended);
+          return;
+        }
+        await authStore.setUser(response.user);
+        await authStore.setAuthToken(response.token);
+        await authStore.setLoggedIn(true);
+        toast(language.lblLoginSuccess);
+        if (getStringListAsync(chooseTopicList) != null) DashboardScreen().launch(context, isNewTask: true);
+        else ChooseTopicScreen(isVisibleBack: false).launch(context, isNewTask: true);
+      } else {
+        toast(response.message ?? language.lblLoginFailed);
+      }
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('canceled')) toast('Giris iptal edildi.');
+      else toast('Apple giris hatasi: ${e.toString()}');
     } finally {
       setState(() => isLoading = false);
     }
@@ -492,7 +526,7 @@ Future<void> _handleGoogleRegister() async {
 
         Row(
           children: [
-Expanded(
+            Expanded(
               child: _buildSocialButton(
                 icon: Icons.g_mobiledata,
                 label: 'Google',
@@ -500,6 +534,17 @@ Expanded(
                 isGoogle: true,
               ),
             ),
+            if (Platform.isIOS || Platform.isMacOS) ...[
+              SizedBox(width: 12),
+              Expanded(
+                child: _buildSocialButton(
+                  icon: Icons.apple,
+                  label: 'Apple',
+                  onTap: _handleAppleRegister,
+                  isGoogle: false,
+                ),
+              ),
+            ]
           ],
         ),
 
@@ -765,11 +810,13 @@ Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: isGoogle ? 26 : 20,
-              color: isGoogle ? Colors.red : (appStore.isDarkModeOn ? Colors.white : Colors.black),
-            ),
+            isGoogle
+                ? Image.asset('asset/ic_google.png', width: 24, height: 24)
+                : Icon(
+                    icon,
+                    size: 24,
+                    color: appStore.isDarkModeOn ? Colors.white : Colors.black,
+                  ),
             SizedBox(width: 8),
             Text(label, style: primaryTextStyle(size: 13)),
           ],
