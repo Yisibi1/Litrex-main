@@ -157,11 +157,15 @@ class SettingScreenState extends State<SettingScreen> {
               title: language.lblRateUs,
               trailing: mTailingIcon(),
               onTap: () {
-                PackageInfo.fromPlatform().then((value) {
-                  String package = '';
-                  if (isAndroid) package = value.packageName;
-                  launch('${storeBaseURL()}$package');
-                });
+                if (isApple) {
+                  launch('https://apps.apple.com/us/app/litrex-e-kitap-oku/id6774904816');
+                } else {
+                  PackageInfo.fromPlatform().then((value) {
+                    String package = '';
+                    if (isAndroid) package = value.packageName;
+                    launch('${storeBaseURL()}$package');
+                  });
+                }
               },
             ),
             SettingItemWidget(

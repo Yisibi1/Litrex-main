@@ -88,7 +88,7 @@ class _RatingDialogState extends State<RatingDialog> {
                     Navigator.of(context).pop();
                     await setValue('IS_APP_RATED', true);
                     if (rating >= 4.0) {
-                      StoreRedirect.redirect(androidAppId: "com.litrex.ebook");
+                      StoreRedirect.redirect(androidAppId: "com.litrex.ebook", iOSAppId: "6774904816");
                     } else {
                       toast("Teşekkürler!");
                     }
