@@ -10,7 +10,6 @@ import '../utils/Extensions/text_styles.dart';
 import '../utils/Extensions/shared_pref.dart';
 import '../main.dart';
 import '../store/TrackingStore.dart';
-import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -92,19 +91,6 @@ class _ReadingTimerScreenState extends State<ReadingTimerScreen> {
     });
   }
 
-  Future<void> _scanBarcode() async {
-    String? res = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SimpleBarcodeScannerPage(),
-      ),
-    );
-
-    if (res != null && res != '-1') {
-      toast("Barkod bulundu: $res. Kitap aranıyor...");
-      _fetchBookDetails(res);
-    }
-  }
 
   Future<void> _fetchBookDetails(String isbn) async {
     try {
@@ -170,12 +156,6 @@ class _ReadingTimerScreenState extends State<ReadingTimerScreen> {
                       enabled: !_isRunning && _seconds == 0,
                     ),
                   ),
-                  if (!_isRunning && _seconds == 0)
-                    IconButton(
-                      icon: Icon(Icons.qr_code_scanner, color: primaryColor),
-                      onPressed: _scanBarcode,
-                      tooltip: "Barkod ile Bul",
-                    )
                 ],
               ),
             ),
