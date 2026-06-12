@@ -34,8 +34,8 @@ android {
         applicationId "com.litrex.ebook"
         minSdkVersion 28
         targetSdkVersion 36
-        versionCode 37
-        versionName "3.0.7"
+        versionCode 38
+        versionName "3.0.8"
         multiDexEnabled true
     }
 
