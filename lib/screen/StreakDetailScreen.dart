@@ -43,7 +43,9 @@ class _StreakDetailScreenState extends State<StreakDetailScreen> with SingleTick
         return Transform.scale(
           scale: _scaleAnimation.value,
           child: Container(
-            padding: EdgeInsets.all(24),
+            width: 200,
+            height: 200,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
@@ -61,6 +63,7 @@ class _StreakDetailScreenState extends State<StreakDetailScreen> with SingleTick
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.local_fire_department_rounded, size: 80, color: Colors.white),
                 8.height,
