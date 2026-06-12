@@ -7,37 +7,37 @@ class LanguageVi extends BaseLanguage {
   String get lblFavourite => "D?u trang";
 
   @override
-  String get lblPopular => "Sách ph? bi?n";
+  String get lblPopular => "SÃ¡ch ph? bi?n";
 
   @override
-  String get lblLatest => "Sách m?i nh?t";
+  String get lblLatest => "SÃ¡ch m?i nh?t";
 
   @override
-  String get lblFeatured => "Sách n?i b?t";
+  String get lblFeatured => "SÃ¡ch n?i b?t";
 
   @override
-  String get lblSuggested => "Sách d? xu?t";
+  String get lblSuggested => "SÃ¡ch d? xu?t";
 
   @override
-  String get lblAboutUs => "V? chúng tôi";
+  String get lblAboutUs => "V? chÃºng tÃ´i";
 
   @override
-  String get lblPrivacyPolicy => "Chính sách b?o m?t";
+  String get lblPrivacyPolicy => "ChÃ­nh sÃ¡ch b?o m?t";
 
   @override
-  String get lblTermsCondition => "Ği?u kho?n và di?u ki?n";
+  String get lblTermsCondition => "Ãi?u kho?n vÃ  di?u ki?n";
 
   @override
-  String get lblTermsOfUseEula => "Ği?u kho?n và di?u ki?n (EULA)";
+  String get lblTermsOfUseEula => "Ãi?u kho?n vÃ  di?u ki?n (EULA)";
 
   @override
-  String get lblNoDataFound => "Không tìm th?y d? li?u nào";
+  String get lblNoDataFound => "KhÃ´ng tÃ¬m th?y d? li?u nÃ o";
 
   @override
-  String get lblNoInternet => "Internet c?a b?n không ho?t d?ng";
+  String get lblNoInternet => "Internet c?a b?n khÃ´ng ho?t d?ng";
 
   @override
-  String get lblRateUs => "Ğánh giá chúng tôi";
+  String get lblRateUs => "ÃÃ¡nh giÃ¡ chÃºng tÃ´i";
 
   @override
   String get lblDarkMode => "Ch? d? t?i";
@@ -46,28 +46,28 @@ class LanguageVi extends BaseLanguage {
   String get lblSystemDefault => "M?c d?nh h? th?ng";
 
   @override
-  String get lblLightMode => "Ch? d? sáng";
+  String get lblLightMode => "Ch? d? sÃ¡ng";
 
   @override
-  String get lblPushNotification => "Vô hi?u hóa thông báo d?y";
+  String get lblPushNotification => "VÃ´ hi?u hÃ³a thÃ´ng bÃ¡o d?y";
 
   @override
-  String get lblSearchBook => "Sách tìm ki?m";
+  String get lblSearchBook => "SÃ¡ch tÃ¬m ki?m";
 
   @override
-  String get lblSetting => "Cài d?t";
+  String get lblSetting => "CÃ i d?t";
 
   @override
-  String get lblSeeMore => "Xem thêm";
+  String get lblSeeMore => "Xem thÃªm";
 
   @override
-  String get lblRemoveBookmark => "B?n có ch?c là b?n mu?n xóa d?u trang?";
+  String get lblRemoveBookmark => "B?n cÃ³ ch?c lÃ  b?n mu?n xÃ³a d?u trang?";
 
   @override
-  String get lblTryAgain => "Vui lòng th? l?i";
+  String get lblTryAgain => "Vui lÃ²ng th? l?i";
 
   @override
-  String get lblReadBook => "Ğ?c sách";
+  String get lblReadBook => "Ã?c sÃ¡ch";
 
   @override
   String get lblSelectTheme => "Ch?n ch? d?";
@@ -76,13 +76,13 @@ class LanguageVi extends BaseLanguage {
   String get lblChooseTopic => "Ch?n ch? d?";
 
   @override
-  String get lblContinue => "Còn n?a";
+  String get lblContinue => "CÃ²n n?a";
 
   @override
-  String get lblChooseTopicMsg => "Vui lòng ch?n ít nh?t 3 ch? d?";
+  String get lblChooseTopicMsg => "Vui lÃ²ng ch?n Ã­t nh?t 3 ch? d?";
 
   @override
-  String get lblChooseTopicTitle => "Ch?n danh m?c quan tâm c?a b?n";
+  String get lblChooseTopicTitle => "Ch?n danh m?c quan tÃ¢m c?a b?n";
 
   @override
   String get lblChooseTopicDesc => "Ch?n ba ho?c nhi?u hon.";
@@ -91,7 +91,7 @@ class LanguageVi extends BaseLanguage {
   String get lblCancel => "H?y b?";
 
   @override
-  String get lblYes => "Ğúng";
+  String get lblYes => "ÃÃºng";
 
   @override
   String get lblUrlEmpty => "URL tr?ng";
@@ -100,49 +100,49 @@ class LanguageVi extends BaseLanguage {
   String get lblChooseTheme => "Ch?n ch? d? ?ng d?ng c?a b?n";
 
   @override
-  String get lblDisableNotification => "B?t/t?t thông báo d?y";
+  String get lblDisableNotification => "B?t/t?t thÃ´ng bÃ¡o d?y";
 
   @override
-  String get lblOthers => "Khác";
+  String get lblOthers => "KhÃ¡c";
 
   @override
   String get lblBy => "Qua";
 
   @override
-  String get lblAuthors => "Tác gi?";
+  String get lblAuthors => "TÃ¡c gi?";
 
   @override
-  String get lblAuthorsDes => "Tìm sách c?a b?n b?i các tác gi?";
+  String get lblAuthorsDes => "TÃ¬m sÃ¡ch c?a b?n b?i cÃ¡c tÃ¡c gi?";
 
   @override
   String get lblAbout => "V?";
 
   @override
-  String get lblBooksBy => "Xu?t b?n sách";
+  String get lblBooksBy => "Xu?t b?n sÃ¡ch";
 
   @override
-  String get lblDescription => "S? miêu t?";
+  String get lblDescription => "S? miÃªu t?";
 
   @override
   String get lblRemove => "T?y";
 
   @override
-  String get lblWalk1 => "Chào m?ng b?n d?n Sách di?n t? Mighty";
+  String get lblWalk1 => "ChÃ o m?ng b?n d?n SÃ¡ch di?n t? Mighty";
 
   @override
-  String get lblWalk1Desc => "Lorem Ipsum ch? don gi?n là van b?n gi? c?a ngành in và s?p ch?.";
+  String get lblWalk1Desc => "Lorem Ipsum ch? don gi?n lÃ  van b?n gi? c?a ngÃ nh in vÃ  s?p ch?.";
 
   @override
-  String get lblWalk2 => "Ğ?c t?p PDF";
+  String get lblWalk2 => "Ã?c t?p PDF";
 
   @override
-  String get lblWalk2Desc => "Lorem Ipsum ch? don gi?n là van b?n gi? c?a ngành in và s?p ch?.";
+  String get lblWalk2Desc => "Lorem Ipsum ch? don gi?n lÃ  van b?n gi? c?a ngÃ nh in vÃ  s?p ch?.";
 
   @override
-  String get lblWalk3 => "Ğánh d?u cu?n sách c?a b?n";
+  String get lblWalk3 => "ÃÃ¡nh d?u cu?n sÃ¡ch c?a b?n";
 
   @override
-  String get lblWalk3Desc => "Lorem Ipsum ch? don gi?n là van b?n gi? c?a ngành in và s?p ch?.";
+  String get lblWalk3Desc => "Lorem Ipsum ch? don gi?n lÃ  van b?n gi? c?a ngÃ nh in vÃ  s?p ch?.";
 
   @override
   String get lblGetStarted => "B?t d?u";
@@ -151,100 +151,113 @@ class LanguageVi extends BaseLanguage {
   String get lblSkip => "Nh?y";
 
   @override
-  String get lblLanguage => "Ch?n ngôn ng? Language";
+  String get lblLanguage => "Ch?n ngÃ´n ng? Language";
 
   @override
-  String get lblLanguageDesc => "Ch?n ngôn ng? c?a b?n";
+  
+  @override
+  String get lblReadingMode => "Reading Mode";
+  @override
+  String get lblScrollDirection => "Scroll Direction";
+  @override
+  String get lblVertical => "Vertical";
+  @override
+  String get lblHorizontal => "Horizontal";
+  @override
+  String get lblFullScreen => "Full Screen";
+
+  @override
+  String get lblLanguageDesc => "Ch?n ngÃ´n ng? c?a b?n";
 
   // YENI EKLENENLER
-  @override String get lblSearchAuthor => "Tìm tác gi?";
-  @override String get lblNoAuthorsFound => "Không tìm th?y tác gi?";
+  @override String get lblSearchAuthor => "TÃ¬m tÃ¡c gi?";
+  @override String get lblNoAuthorsFound => "KhÃ´ng tÃ¬m th?y tÃ¡c gi?";
 
   // AUTH STRINGS
-  @override String get lblWelcomeBack => "Chào m?ng tr? l?i!";
-  @override String get lblLoginToContinue => "Ğang nh?p d? ti?p t?c";
+  @override String get lblWelcomeBack => "ChÃ o m?ng tr? l?i!";
+  @override String get lblLoginToContinue => "Ãang nh?p d? ti?p t?c";
   @override String get lblEmail => "Email";
   @override String get lblEnterEmail => "Nh?p email c?a b?n";
   @override String get lblPassword => "M?t kh?u";
   @override String get lblEnterPassword => "Nh?p m?t kh?u";
   @override String get lblRememberMe => "Ghi nh? dang nh?p";
-  @override String get lblForgotPassword => "Quên m?t kh?u?";
-  @override String get lblLogin => "Ğang nh?p";
+  @override String get lblForgotPassword => "QuÃªn m?t kh?u?";
+  @override String get lblLogin => "Ãang nh?p";
   @override String get lblOrContinueWith => "ho?c ti?p t?c v?i";
-  @override String get lblDontHaveAccount => "Chua có tài kho?n?";
-  @override String get lblRegister => "Ğang kı";
-  @override String get lblLoginSuccess => "Ğang nh?p thành công!";
-  @override String get lblLoginFailed => "Ğang nh?p th?t b?i";
+  @override String get lblDontHaveAccount => "Chua cÃ³ tÃ i kho?n?";
+  @override String get lblRegister => "Ãang kÃ½";
+  @override String get lblLoginSuccess => "Ãang nh?p thÃ nh cÃ´ng!";
+  @override String get lblLoginFailed => "Ãang nh?p th?t b?i";
   @override String get lblComingSoon => "S?p ra m?t!";
-  @override String get lblCreateAccount => "T?o tài kho?n";
-  @override String get lblRegisterToGetStarted => "Ğang kı d? b?t d?u";
-  @override String get lblFullName => "H? và tên";
-  @override String get lblEnterFullName => "Nh?p h? và tên";
-  @override String get lblPhone => "Ği?n tho?i";
+  @override String get lblCreateAccount => "T?o tÃ i kho?n";
+  @override String get lblRegisterToGetStarted => "Ãang kÃ½ d? b?t d?u";
+  @override String get lblFullName => "H? vÃ  tÃªn";
+  @override String get lblEnterFullName => "Nh?p h? vÃ  tÃªn";
+  @override String get lblPhone => "Ãi?n tho?i";
   @override String get lblEnterPhone => "Nh?p s? di?n tho?i";
-  @override String get lblConfirmPassword => "Xác nh?n m?t kh?u";
+  @override String get lblConfirmPassword => "XÃ¡c nh?n m?t kh?u";
   @override String get lblReEnterPassword => "Nh?p l?i m?t kh?u";
-  @override String get lblIAgreeToThe => "Tôi d?ng ı v?i";
-  @override String get lblTermsOfService => "Ği?u kho?n d?ch v?";
-  @override String get lblAnd => "và";
-  @override String get lblPleaseAcceptTerms => "Vui lòng ch?p nh?n di?u kho?n";
-  @override String get lblPasswordsDoNotMatch => "M?t kh?u không kh?p";
-  @override String get lblRegistrationSuccess => "Ğang kı thành công!";
-  @override String get lblRegistrationFailed => "Ğang kı th?t b?i";
-  @override String get lblAlreadyHaveAccount => "Ğã có tài kho?n?";
-  @override String get lblVerifyCode => "Xác minh mã";
+  @override String get lblIAgreeToThe => "TÃ´i d?ng Ã½ v?i";
+  @override String get lblTermsOfService => "Ãi?u kho?n d?ch v?";
+  @override String get lblAnd => "vÃ ";
+  @override String get lblPleaseAcceptTerms => "Vui lÃ²ng ch?p nh?n di?u kho?n";
+  @override String get lblPasswordsDoNotMatch => "M?t kh?u khÃ´ng kh?p";
+  @override String get lblRegistrationSuccess => "Ãang kÃ½ thÃ nh cÃ´ng!";
+  @override String get lblRegistrationFailed => "Ãang kÃ½ th?t b?i";
+  @override String get lblAlreadyHaveAccount => "ÃÃ£ cÃ³ tÃ i kho?n?";
+  @override String get lblVerifyCode => "XÃ¡c minh mÃ£";
   @override String get lblNewPassword => "M?t kh?u m?i";
-  @override String get lblSuccess => "Thành công!";
+  @override String get lblSuccess => "ThÃ nh cÃ´ng!";
   @override String get lblEnterEmailToReset => "Nh?p email d? d?t l?i";
-  @override String get lblSendCode => "G?i mã";
-  @override String get lblResetCodeSent => "Mã dã du?c g?i";
-  @override String get lblSomethingWentWrong => "Ğã x?y ra l?i";
-  @override String get lblPleaseEnterEmail => "Vui lòng nh?p email";
-  @override String get lblEnterCodeSentToEmail => "Nh?p mã dã g?i";
-  @override String get lblEnterVerificationCode => "Nh?p mã xác minh";
-  @override String get lblResendCode => "G?i l?i mã";
-  @override String get lblVerify => "Xác minh";
+  @override String get lblSendCode => "G?i mÃ£";
+  @override String get lblResetCodeSent => "MÃ£ dÃ£ du?c g?i";
+  @override String get lblSomethingWentWrong => "ÃÃ£ x?y ra l?i";
+  @override String get lblPleaseEnterEmail => "Vui lÃ²ng nh?p email";
+  @override String get lblEnterCodeSentToEmail => "Nh?p mÃ£ dÃ£ g?i";
+  @override String get lblEnterVerificationCode => "Nh?p mÃ£ xÃ¡c minh";
+  @override String get lblResendCode => "G?i l?i mÃ£";
+  @override String get lblVerify => "XÃ¡c minh";
   @override String get lblEnterNewPassword => "Nh?p m?t kh?u m?i";
-  @override String get lblConfirmNewPassword => "Xác nh?n m?t kh?u m?i";
-  @override String get lblPleaseEnterCode => "Vui lòng nh?p mã";
-  @override String get lblPleaseEnterPassword => "Vui lòng nh?p m?t kh?u";
-  @override String get lblPasswordTooShort => "M?t kh?u ít nh?t 6 kı t?";
-  @override String get lblResetPassword => "Ğ?t l?i m?t kh?u";
-  @override String get lblPasswordResetSuccess => "Ğ?t l?i thành công!";
+  @override String get lblConfirmNewPassword => "XÃ¡c nh?n m?t kh?u m?i";
+  @override String get lblPleaseEnterCode => "Vui lÃ²ng nh?p mÃ£";
+  @override String get lblPleaseEnterPassword => "Vui lÃ²ng nh?p m?t kh?u";
+  @override String get lblPasswordTooShort => "M?t kh?u Ã­t nh?t 6 kÃ½ t?";
+  @override String get lblResetPassword => "Ã?t l?i m?t kh?u";
+  @override String get lblPasswordResetSuccess => "Ã?t l?i thÃ nh cÃ´ng!";
   @override String get lblBackToLogin => "Quay l?i dang nh?p";
   @override String get lblProfile => "H? so";
   @override String get lblEditProfile => "Ch?nh s?a h? so";
-  @override String get lblUpdateYourInfo => "C?p nh?t thông tin";
-  @override String get lblChangePassword => "Ğ?i m?t kh?u";
+  @override String get lblUpdateYourInfo => "C?p nh?t thÃ´ng tin";
+  @override String get lblChangePassword => "Ã?i m?t kh?u";
   @override String get lblUpdateYourPassword => "C?p nh?t m?t kh?u";
   @override String get lblYourBookmarks => "Xem d?u trang";
-  @override String get lblNotifications => "Thông báo";
-  @override String get lblManageNotifications => "Qu?n lı thông báo";
-  @override String get lblHelpSupport => "Tr? giúp & H? tr?";
-  @override String get lblGetHelp => "Nh?n tr? giúp";
-  @override String get lblLogout => "Ğang xu?t";
+  @override String get lblNotifications => "ThÃ´ng bÃ¡o";
+  @override String get lblManageNotifications => "Qu?n lÃ½ thÃ´ng bÃ¡o";
+  @override String get lblHelpSupport => "Tr? giÃºp & H? tr?";
+  @override String get lblGetHelp => "Nh?n tr? giÃºp";
+  @override String get lblLogout => "Ãang xu?t";
   @override String get lblLogoutConfirmation => "B?n mu?n dang xu?t?";
-  @override String get lblLogoutSuccess => "Ğang xu?t thành công";
-  @override String get lblDeleteAccount => "Xóa tài kho?n";
-  @override String get lblDeleteAccountWarning => "Không th? hoàn tác!";
-  @override String get lblEnterPasswordToConfirm => "Nh?p m?t kh?u d? xác nh?n";
-  @override String get lblAccountDeleted => "Tài kho?n dã xóa";
-  @override String get lblDelete => "Xóa";
+  @override String get lblLogoutSuccess => "Ãang xu?t thÃ nh cÃ´ng";
+  @override String get lblDeleteAccount => "XÃ³a tÃ i kho?n";
+  @override String get lblDeleteAccountWarning => "KhÃ´ng th? hoÃ n tÃ¡c!";
+  @override String get lblEnterPasswordToConfirm => "Nh?p m?t kh?u d? xÃ¡c nh?n";
+  @override String get lblAccountDeleted => "TÃ i kho?n dÃ£ xÃ³a";
+  @override String get lblDelete => "XÃ³a";
   @override String get lblNotLoggedIn => "Chua dang nh?p";
-  @override String get lblLoginToAccessProfile => "Ğang nh?p d? truy c?p";
+  @override String get lblLoginToAccessProfile => "Ãang nh?p d? truy c?p";
   @override String get lblBio => "Ti?u s?";
-  @override String get lblBooksRead => "Ğã d?c";
+  @override String get lblBooksRead => "ÃÃ£ d?c";
   @override String get lblBookmarks => "D?u trang";
-  @override String get lblFavorites => "Yêu thích";
+  @override String get lblFavorites => "YÃªu thÃ­ch";
   @override String get lblCurrentPassword => "M?t kh?u hi?n t?i";
-  @override String get lblPasswordChangedSuccess => "Ğ?i m?t kh?u thành công!";
+  @override String get lblPasswordChangedSuccess => "Ã?i m?t kh?u thÃ nh cÃ´ng!";
   @override String get lblUpdate => "C?p nh?t";
   @override String get lblEnterBio => "Gi?i thi?u v? b?n...";
   @override String get lblSaveChanges => "Luu thay d?i";
-  @override String get lblProfileUpdated => "C?p nh?t h? so thành công!";
-  @override String get lblAvatarUpdated => "C?p nh?t ?nh thành công!";
+  @override String get lblProfileUpdated => "C?p nh?t h? so thÃ nh cÃ´ng!";
+  @override String get lblAvatarUpdated => "C?p nh?t ?nh thÃ nh cÃ´ng!";
   @override String get lblChoosePhoto => "Ch?n ?nh";
-  @override String get lblCamera => "Máy ?nh";
+  @override String get lblCamera => "MÃ¡y ?nh";
   @override String get lblGallery => "Thu vi?n";
 
   // Offline Reading / Downloads
@@ -323,6 +336,32 @@ class LanguageVi extends BaseLanguage {
   @override String get lblRateUsTitle => "Enjoying the App?";
   @override String get lblRateUsMsg => "If you like our app, please take a moment to rate it. It really helps us!";
   @override String get lblRateNow => "Rate Now";
-  @override String get lblMaybeLater => "Maybe Later";
+  @override 
+  // Streak Screen
+  @override String get lblStreakDetails => "Streak Details";
+  @override String get lblDay => "Day";
+  @override String get lblThisWeek => "This Week";
+  @override String get lblAchievements => "Achievements";
+  @override String get lblCompleted => "Completed";
+  @override String get lblReward => "Reward";
+  @override String get lblDayStreak => "Day Streak";
+  @override String get lblCoinsReward => "Coins";
+
+  @override String get lblStreakInfoTitle => "ğŸ”¥ What is a Streak?";
+  @override 
+  @override String get lblMon => "Mon";
+  @override String get lblTue => "Tue";
+  @override String get lblWed => "Wed";
+  @override String get lblThu => "Thu";
+  @override String get lblFri => "Fri";
+  @override String get lblSat => "Sat";
+  @override String get lblSun => "Sun";
+
+  @override
+  String get lblStreakInfoMsg => "You can increase your streak by opening the app or reading a book every day.\n\nâš ï¸ Warning:\nIf you miss 1 day, the chain will break and your streak will reset.\n\nğŸ Reward:\nThe system will automatically reward you with coins when you reach certain milestones!";
+
+
+  @override
+  String get lblMaybeLater => "Maybe Later";
 
 }

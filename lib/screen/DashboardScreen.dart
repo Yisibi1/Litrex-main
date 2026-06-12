@@ -23,6 +23,7 @@ import 'WebViewScreen.dart';
 import '../main.dart';
 import 'PremiumScreen.dart';
 import 'CoinPurchaseScreen.dart';
+import 'StatisticsScreen.dart';
 import '../utils/Extensions/Commons.dart';
 import '../utils/constant.dart';
 import '../utils/Extensions/shared_pref.dart';
@@ -43,6 +44,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   final tab = [
     HomeScreen(),
     CategoryScreen(),
+    // StatisticsScreen(), // Hiding for now until Virtual Library is ready
     BookmarkScreen(),
     ProfileScreen(),
   ];
@@ -457,6 +459,7 @@ class DashboardScreenState extends State<DashboardScreen> {
         items: [
           BottomNavigationBarItem(icon: Icon(Ionicons.md_book_outline, size: 20), activeIcon: Column(children: [Icon(Ionicons.book, size: 22), mLine()]), label: ""),
           BottomNavigationBarItem(icon: Icon(Ionicons.md_grid_outline, size: 20), activeIcon: Column(children: [Icon(Ionicons.md_grid, size: 22), mLine()]), label: ""),
+          // BottomNavigationBarItem(icon: Icon(Ionicons.stats_chart_outline, size: 20), activeIcon: Column(children: [Icon(Ionicons.stats_chart, size: 22), mLine()]), label: ""), // Hidden for now
           BottomNavigationBarItem(icon: Icon(Ionicons.library_outline, size: 20), activeIcon: Column(children: [Icon(Ionicons.library, size: 22), mLine()]), label: ""),
           BottomNavigationBarItem(icon: Icon(Ionicons.person_outline, size: 20), activeIcon: Column(children: [Icon(Ionicons.person, size: 22), mLine()]), label: ""),
         ],

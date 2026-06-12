@@ -1,7 +1,7 @@
 import 'BaseLanguage.dart';
 class LanguageFr extends BaseLanguage {
   @override
-  String get lblCategory => "Catégories";
+  String get lblCategory => "CatÃ©gories";
 
   @override
   String get lblFavourite => "Signets";
@@ -16,13 +16,13 @@ class LanguageFr extends BaseLanguage {
   String get lblFeatured => "Livres en vedette";
 
   @override
-  String get lblSuggested => "Livres suggérés";
+  String get lblSuggested => "Livres suggÃ©rÃ©s";
 
   @override
-  String get lblAboutUs => "À propos de nous";
+  String get lblAboutUs => "Ã€ propos de nous";
 
   @override
-  String get lblPrivacyPolicy => "Politique de confidentialité";
+  String get lblPrivacyPolicy => "Politique de confidentialitÃ©";
 
   @override
   String get lblTermsCondition => "termes et conditions";
@@ -31,46 +31,46 @@ class LanguageFr extends BaseLanguage {
   String get lblTermsOfUseEula => "termes et conditions (EULA)";
 
   @override
-  String get lblNoDataFound => "Aucune donnée disponible";
+  String get lblNoDataFound => "Aucune donnÃ©e disponible";
 
   @override
   String get lblNoInternet => "Votre Internet ne fonctionne pas";
 
   @override
-  String get lblRateUs => "Évaluez nous";
+  String get lblRateUs => "Ã‰valuez nous";
 
   @override
   String get lblDarkMode => "Mode sombre";
 
   @override
-  String get lblSystemDefault => "Défaillance du système";
+  String get lblSystemDefault => "DÃ©faillance du systÃ¨me";
 
   @override
-  String get lblLightMode => "Mode léger";
+  String get lblLightMode => "Mode lÃ©ger";
 
   @override
-  String get lblPushNotification => "Désactiver la notification push";
+  String get lblPushNotification => "DÃ©sactiver la notification push";
 
   @override
   String get lblSearchBook => "Livre de recherche";
 
   @override
-  String get lblSetting => "Réglages";
+  String get lblSetting => "RÃ©glages";
 
   @override
   String get lblSeeMore => "Voir plus";
 
   @override
-  String get lblRemoveBookmark => "Êtes-vous sûr de vouloir supprimer le signet?";
+  String get lblRemoveBookmark => "ÃŠtes-vous sÃ»r de vouloir supprimer le signet?";
 
   @override
-  String get lblTryAgain => "Veuillez réessayer";
+  String get lblTryAgain => "Veuillez rÃ©essayer";
 
   @override
   String get lblReadBook => "Lire un livre";
 
   @override
-  String get lblSelectTheme => "Sélectionne un thème";
+  String get lblSelectTheme => "SÃ©lectionne un thÃ¨me";
 
   @override
   String get lblChooseTopic => "Choisir le sujet";
@@ -79,10 +79,10 @@ class LanguageFr extends BaseLanguage {
   String get lblContinue => "Continuez";
 
   @override
-  String get lblChooseTopicMsg => "Veuillez sélectionner au moins 3 sujets";
+  String get lblChooseTopicMsg => "Veuillez sÃ©lectionner au moins 3 sujets";
 
   @override
-  String get lblChooseTopicTitle => "Sélectionnez votre catégorie intéressée";
+  String get lblChooseTopicTitle => "SÃ©lectionnez votre catÃ©gorie intÃ©ressÃ©e";
 
   @override
   String get lblChooseTopicDesc => "Choisissez trois ou plus.";
@@ -97,10 +97,10 @@ class LanguageFr extends BaseLanguage {
   String get lblUrlEmpty => "L'URL est vide";
 
   @override
-  String get lblChooseTheme => "Choisissez le thème de votre application";
+  String get lblChooseTheme => "Choisissez le thÃ¨me de votre application";
 
   @override
-  String get lblDisableNotification => "Activer / désactiver les notifications push";
+  String get lblDisableNotification => "Activer / dÃ©sactiver les notifications push";
 
   @override
   String get lblOthers => "Autres";
@@ -124,10 +124,10 @@ class LanguageFr extends BaseLanguage {
   String get lblDescription => "La description";
 
   @override
-  String get lblRemove => "Éliminer";
+  String get lblRemove => "Ã‰liminer";
 
   @override
-  String get lblWalk1 => "Bienvenue à Mighty Ebook";
+  String get lblWalk1 => "Bienvenue Ã  Mighty Ebook";
 
   @override
   String get lblWalk1Desc => "Lorem Ipsum est simplement un texte muet de l'industrie de l'impression et de la composition.";
@@ -151,14 +151,27 @@ class LanguageFr extends BaseLanguage {
   String get lblSkip => "Sauter";
 
   @override
-  String get lblLanguage => "Sélectionner la langue de l'élecqueur en langues";
+  String get lblLanguage => "SÃ©lectionner la langue de l'Ã©lecqueur en langues";
+
+  @override
+  
+  @override
+  String get lblReadingMode => "Reading Mode";
+  @override
+  String get lblScrollDirection => "Scroll Direction";
+  @override
+  String get lblVertical => "Vertical";
+  @override
+  String get lblHorizontal => "Horizontal";
+  @override
+  String get lblFullScreen => "Full Screen";
 
   @override
   String get lblLanguageDesc => "Choisissez votre langue";
 
 // YENI EKLENENLER
   @override String get lblSearchAuthor => "Rechercher un auteur";
-  @override String get lblNoAuthorsFound => "Aucun auteur trouvé";
+  @override String get lblNoAuthorsFound => "Aucun auteur trouvÃ©";
 
   // ==================== AUTH STRINGS ====================
   @override String get lblWelcomeBack => "Bienvenue!";
@@ -168,20 +181,20 @@ class LanguageFr extends BaseLanguage {
   @override String get lblPassword => "Mot de passe";
   @override String get lblEnterPassword => "Entrez votre mot de passe";
   @override String get lblRememberMe => "Se souvenir de moi";
-  @override String get lblForgotPassword => "Mot de passe oublié?";
+  @override String get lblForgotPassword => "Mot de passe oubliÃ©?";
   @override String get lblLogin => "Connexion";
   @override String get lblOrContinueWith => "ou continuer avec";
   @override String get lblDontHaveAccount => "Vous n'avez pas de compte?";
   @override String get lblRegister => "S'inscrire";
-  @override String get lblLoginSuccess => "Connexion réussie!";
-  @override String get lblLoginFailed => "Échec de la connexion";
-  @override String get lblComingSoon => "Bientôt disponible!";
-  @override String get lblCreateAccount => "Créer un compte";
+  @override String get lblLoginSuccess => "Connexion rÃ©ussie!";
+  @override String get lblLoginFailed => "Ã‰chec de la connexion";
+  @override String get lblComingSoon => "BientÃ´t disponible!";
+  @override String get lblCreateAccount => "CrÃ©er un compte";
   @override String get lblRegisterToGetStarted => "Inscrivez-vous pour commencer";
   @override String get lblFullName => "Nom complet";
   @override String get lblEnterFullName => "Entrez votre nom complet";
-  @override String get lblPhone => "Téléphone";
-  @override String get lblEnterPhone => "Entrez votre numéro";
+  @override String get lblPhone => "TÃ©lÃ©phone";
+  @override String get lblEnterPhone => "Entrez votre numÃ©ro";
   @override String get lblConfirmPassword => "Confirmer le mot de passe";
   @override String get lblReEnterPassword => "Ressaisissez le mot de passe";
   @override String get lblIAgreeToThe => "J'accepte les";
@@ -189,62 +202,62 @@ class LanguageFr extends BaseLanguage {
   @override String get lblAnd => "et";
   @override String get lblPleaseAcceptTerms => "Veuillez accepter les conditions";
   @override String get lblPasswordsDoNotMatch => "Les mots de passe ne correspondent pas";
-  @override String get lblRegistrationSuccess => "Inscription réussie!";
-  @override String get lblRegistrationFailed => "Échec de l'inscription";
-  @override String get lblAlreadyHaveAccount => "Vous avez déjà un compte?";
-  @override String get lblVerifyCode => "Vérifier le code";
+  @override String get lblRegistrationSuccess => "Inscription rÃ©ussie!";
+  @override String get lblRegistrationFailed => "Ã‰chec de l'inscription";
+  @override String get lblAlreadyHaveAccount => "Vous avez dÃ©jÃ  un compte?";
+  @override String get lblVerifyCode => "VÃ©rifier le code";
   @override String get lblNewPassword => "Nouveau mot de passe";
-  @override String get lblSuccess => "Succès!";
-  @override String get lblEnterEmailToReset => "Entrez votre email pour réinitialiser";
+  @override String get lblSuccess => "SuccÃ¨s!";
+  @override String get lblEnterEmailToReset => "Entrez votre email pour rÃ©initialiser";
   @override String get lblSendCode => "Envoyer le code";
-  @override String get lblResetCodeSent => "Code envoyé à votre email";
+  @override String get lblResetCodeSent => "Code envoyÃ© Ã  votre email";
   @override String get lblSomethingWentWrong => "Une erreur s'est produite";
   @override String get lblPleaseEnterEmail => "Veuillez entrer votre email";
-  @override String get lblEnterCodeSentToEmail => "Entrez le code envoyé";
-  @override String get lblEnterVerificationCode => "Entrez le code de vérification";
+  @override String get lblEnterCodeSentToEmail => "Entrez le code envoyÃ©";
+  @override String get lblEnterVerificationCode => "Entrez le code de vÃ©rification";
   @override String get lblResendCode => "Renvoyer le code";
-  @override String get lblVerify => "Vérifier";
+  @override String get lblVerify => "VÃ©rifier";
   @override String get lblEnterNewPassword => "Entrez le nouveau mot de passe";
   @override String get lblConfirmNewPassword => "Confirmez le nouveau mot de passe";
   @override String get lblPleaseEnterCode => "Veuillez entrer le code";
   @override String get lblPleaseEnterPassword => "Veuillez entrer le mot de passe";
-  @override String get lblPasswordTooShort => "Le mot de passe doit contenir au moins 6 caractères";
-  @override String get lblResetPassword => "Réinitialiser le mot de passe";
-  @override String get lblPasswordResetSuccess => "Mot de passe réinitialisé!";
-  @override String get lblBackToLogin => "Retour à la connexion";
+  @override String get lblPasswordTooShort => "Le mot de passe doit contenir au moins 6 caractÃ¨res";
+  @override String get lblResetPassword => "RÃ©initialiser le mot de passe";
+  @override String get lblPasswordResetSuccess => "Mot de passe rÃ©initialisÃ©!";
+  @override String get lblBackToLogin => "Retour Ã  la connexion";
   @override String get lblProfile => "Profil";
   @override String get lblEditProfile => "Modifier le profil";
-  @override String get lblUpdateYourInfo => "Mettre à jour vos informations";
+  @override String get lblUpdateYourInfo => "Mettre Ã  jour vos informations";
   @override String get lblChangePassword => "Changer le mot de passe";
-  @override String get lblUpdateYourPassword => "Mettre à jour votre mot de passe";
+  @override String get lblUpdateYourPassword => "Mettre Ã  jour votre mot de passe";
   @override String get lblYourBookmarks => "Voir vos signets";
   @override String get lblNotifications => "Notifications";
-  @override String get lblManageNotifications => "Gérer les notifications";
+  @override String get lblManageNotifications => "GÃ©rer les notifications";
   @override String get lblHelpSupport => "Aide et support";
   @override String get lblGetHelp => "Obtenir de l'aide";
-  @override String get lblLogout => "Déconnexion";
-  @override String get lblLogoutConfirmation => "Voulez-vous vous déconnecter?";
-  @override String get lblLogoutSuccess => "Déconnexion réussie";
+  @override String get lblLogout => "DÃ©connexion";
+  @override String get lblLogoutConfirmation => "Voulez-vous vous dÃ©connecter?";
+  @override String get lblLogoutSuccess => "DÃ©connexion rÃ©ussie";
   @override String get lblDeleteAccount => "Supprimer le compte";
-  @override String get lblDeleteAccountWarning => "Cette action est irréversible!";
+  @override String get lblDeleteAccountWarning => "Cette action est irrÃ©versible!";
   @override String get lblEnterPasswordToConfirm => "Entrez le mot de passe pour confirmer";
-  @override String get lblAccountDeleted => "Compte supprimé";
+  @override String get lblAccountDeleted => "Compte supprimÃ©";
   @override String get lblDelete => "Supprimer";
-  @override String get lblNotLoggedIn => "Non connecté";
-  @override String get lblLoginToAccessProfile => "Connectez-vous pour accéder";
+  @override String get lblNotLoggedIn => "Non connectÃ©";
+  @override String get lblLoginToAccessProfile => "Connectez-vous pour accÃ©der";
   @override String get lblBio => "Bio";
   @override String get lblBooksRead => "Lus";
   @override String get lblBookmarks => "Signets";
   @override String get lblFavorites => "Favoris";
   @override String get lblCurrentPassword => "Mot de passe actuel";
-  @override String get lblPasswordChangedSuccess => "Mot de passe modifié!";
-  @override String get lblUpdate => "Mettre à jour";
+  @override String get lblPasswordChangedSuccess => "Mot de passe modifiÃ©!";
+  @override String get lblUpdate => "Mettre Ã  jour";
   @override String get lblEnterBio => "Parlez-nous de vous...";
   @override String get lblSaveChanges => "Enregistrer";
-  @override String get lblProfileUpdated => "Profil mis à jour!";
-  @override String get lblAvatarUpdated => "Photo mise à jour!";
+  @override String get lblProfileUpdated => "Profil mis Ã  jour!";
+  @override String get lblAvatarUpdated => "Photo mise Ã  jour!";
   @override String get lblChoosePhoto => "Choisir une photo";
-  @override String get lblCamera => "Caméra";
+  @override String get lblCamera => "CamÃ©ra";
   @override String get lblGallery => "Galerie";
 
   // Offline Reading / Downloads
@@ -323,6 +336,32 @@ class LanguageFr extends BaseLanguage {
   @override String get lblRateUsTitle => "Enjoying the App?";
   @override String get lblRateUsMsg => "If you like our app, please take a moment to rate it. It really helps us!";
   @override String get lblRateNow => "Rate Now";
-  @override String get lblMaybeLater => "Maybe Later";
+  @override 
+  // Streak Screen
+  @override String get lblStreakDetails => "Streak Details";
+  @override String get lblDay => "Day";
+  @override String get lblThisWeek => "This Week";
+  @override String get lblAchievements => "Achievements";
+  @override String get lblCompleted => "Completed";
+  @override String get lblReward => "Reward";
+  @override String get lblDayStreak => "Day Streak";
+  @override String get lblCoinsReward => "Coins";
+
+  @override String get lblStreakInfoTitle => "ğŸ”¥ What is a Streak?";
+  @override 
+  @override String get lblMon => "Mon";
+  @override String get lblTue => "Tue";
+  @override String get lblWed => "Wed";
+  @override String get lblThu => "Thu";
+  @override String get lblFri => "Fri";
+  @override String get lblSat => "Sat";
+  @override String get lblSun => "Sun";
+
+  @override
+  String get lblStreakInfoMsg => "You can increase your streak by opening the app or reading a book every day.\n\nâš ï¸ Warning:\nIf you miss 1 day, the chain will break and your streak will reset.\n\nğŸ Reward:\nThe system will automatically reward you with coins when you reach certain milestones!";
+
+
+  @override
+  String get lblMaybeLater => "Maybe Later";
 
 }

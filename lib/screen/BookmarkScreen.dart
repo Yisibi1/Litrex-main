@@ -18,6 +18,7 @@ import 'BookDetailScreen.dart';
 import '../store/LibraryStore.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import '../component/StreakBalanceComponent.dart';
 
 class BookmarkScreen extends StatefulWidget {
   static String tag = '/FavouriteScreen';
@@ -92,6 +93,7 @@ class BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvide
               child: FadeInAnimation(
                 child: BookmarkComponent(
                   books[i].book,
+                  progress: books[i].progress,
                   onTap: () async {
                     BookDetailScreen(data: books[i].book).launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
                   },

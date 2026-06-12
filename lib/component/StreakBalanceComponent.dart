@@ -7,6 +7,7 @@ import '../utils/Extensions/int_extensions.dart';
 import '../utils/colors.dart';
 import '../utils/Extensions/shared_pref.dart';
 import '../utils/Extensions/Commons.dart';
+import '../screen/StreakDetailScreen.dart';
 
 ValueNotifier<int>? _currentStreakNotifier;
 
@@ -25,11 +26,7 @@ class StreakBalanceComponent extends StatelessWidget {
       builder: (context, streak, child) {
         return InkWell(
           onTap: () {
-            if (streak <= 0) {
-              toast("Kitap okuyarak serinizi başlatın!");
-            } else {
-              toast("🔥 Harika! $streak gündür arka arkaya okuyorsunuz.");
-            }
+            StreakDetailScreen().launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
           },
           borderRadius: radius(20),
           child: Container(

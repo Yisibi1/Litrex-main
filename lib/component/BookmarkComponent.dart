@@ -15,8 +15,9 @@ class BookmarkComponent extends StatefulWidget {
   final Function? onTap;
   final Book data;
   final bool isSlider;
+  final double? progress;
 
-  const BookmarkComponent(this.data, {super.key, this.onTap, this.isSlider = false});
+  const BookmarkComponent(this.data, {super.key, this.onTap, this.isSlider = false, this.progress});
 
   @override
   BookmarkComponentState createState() => BookmarkComponentState();
@@ -62,6 +63,24 @@ class BookmarkComponentState extends State<BookmarkComponent> {
                     Text(parseHtmlStringWidget(widget.data.name!.trim()), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, style: boldTextStyle()),
                     4.height,
                     Text(parseHtmlStringWidget(widget.data.description!.trim()), overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, maxLines: 2, style: secondaryTextStyle()),
+                    if (widget.progress != null) ...[
+                      8.height,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("İlerleme", style: secondaryTextStyle(size: 12)),
+                          Text("${(widget.progress! * 100).toInt()}%", style: boldTextStyle(size: 12, color: primaryColor)),
+                        ],
+                      ),
+                      4.height,
+                      LinearProgressIndicator(
+                        value: widget.progress!,
+                        backgroundColor: Colors.grey.withOpacity(0.3),
+                        valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                        minHeight: 4,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ]
                   ],
                 ).paddingSymmetric(vertical: 16,horizontal: 12).expand()
               ],

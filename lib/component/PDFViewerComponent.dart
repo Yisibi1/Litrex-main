@@ -19,7 +19,9 @@ import '../utils/constant.dart';
 import '../main.dart';
 import 'AdMobComponent.dart';
 import '../store/LibraryStore.dart';
+import '../store/TrackingStore.dart';
 import '../model/DashboardResponse.dart';
+import '../screen/QuoteDesignerScreen.dart';
 
 class PDFViewerComponent extends StatefulWidget {
   static String tag = '/PDFViewerComponent';
@@ -49,9 +51,22 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
   PdfViewerController? _pdfViewerController;
   OverlayEntry? _overlayEntry;
   int _lastAdShownPage = 0; // Son reklam gösterilən səhifə
+  DateTime? _sessionStartTime;
 
   String _readingTheme = 'light';
   PdfScrollDirection _scrollDirection = PdfScrollDirection.vertical;
+  bool _isFullScreen = false;
+
+  Color get _appBarColor {
+    if (_readingTheme == 'dark') return Color(0xFF1E1E1E);
+    if (_readingTheme == 'sepia') return Color(0xFFFFFFEE);
+    return primaryColor;
+  }
+
+  Color get _appBarTextColor {
+    if (_readingTheme == 'sepia') return Colors.black;
+    return Colors.white;
+  }
 
   static const ColorFilter _darkFilter = ColorFilter.matrix(<double>[
     -1, 0, 0, 0, 255,
@@ -74,6 +89,7 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
   @override
   void initState() {
     super.initState();
+    _sessionStartTime = DateTime.now();
     init();
   }
 
@@ -85,6 +101,8 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
     _readingTheme = prefs.getString('pdf_reading_theme') ?? 'light';
     String savedScroll = prefs.getString('pdf_scroll_direction') ?? 'vertical';
     _scrollDirection = savedScroll == 'horizontal' ? PdfScrollDirection.horizontal : PdfScrollDirection.vertical;
+    
+    setState(() {});
 
     // Jetonla açılıb interstitial reklam göstəriləcəksə, hazırla
     if (widget.isUnlockedWithCoins) {
@@ -155,12 +173,25 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
       builder: (context) => Positioned(
         top: details.globalSelectedRegion!.center.dy - 55,
         left: details.globalSelectedRegion!.bottomLeft.dx,
-        child: ElevatedButton(
-            child: Text('Copy', style: TextStyle(fontSize: 16)),
-            onPressed: () {
-              Clipboard.setData(ClipboardData(text: details.selectedText.validate()));
-              _pdfViewerController!.clearSelection();
-            }),
+        child: Row(
+          children: [
+            ElevatedButton(
+                child: Text('Copy', style: TextStyle(fontSize: 16)),
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: details.selectedText.validate()));
+                  _pdfViewerController!.clearSelection();
+                }),
+            8.width,
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+                child: Text('Dizayn Et', style: TextStyle(fontSize: 16, color: Colors.white)),
+                onPressed: () {
+                  final text = details.selectedText.validate();
+                  _pdfViewerController!.clearSelection();
+                  QuoteDesignerScreen(quoteText: text, bookTitle: widget.title).launch(context);
+                }),
+          ],
+        ),
       ),
     );
     overlayState.insert(_overlayEntry!);
@@ -180,7 +211,23 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
 
   @override
   void dispose() {
+    if (_sessionStartTime != null) {
+      final endTime = DateTime.now();
+      final diff = endTime.difference(_sessionStartTime!);
+      if (diff.inSeconds >= 10) { // Saniyə limiti: 10 saniyədən az oxusa saymasın
+        trackingStore.addSession(ReadingSession(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          bookName: widget.title,
+          startTime: _sessionStartTime!,
+          endTime: endTime,
+          durationSeconds: diff.inSeconds,
+        ));
+      }
+    }
     _connectivityTimer?.cancel();
+    _overlayEntry?.remove();
+    _pdfViewerController?.dispose();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
 
@@ -209,7 +256,7 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
                     ),
                   ),
                   20.height,
-                  Text("Oxuma Rejimi", style: boldTextStyle(size: 16)),
+                  Text(language.lblReadingMode, style: boldTextStyle(size: 16)),
                   16.height,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -220,7 +267,7 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
                     ],
                   ),
                   24.height,
-                  Text("Sürüşdürmə Yönü", style: boldTextStyle(size: 16)),
+                  Text(language.lblScrollDirection, style: boldTextStyle(size: 16)),
                   16.height,
                   Container(
                     decoration: BoxDecoration(
@@ -245,7 +292,7 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
                                 borderRadius: radius(12),
                               ),
                               alignment: Alignment.center,
-                              child: Text("Aşağı/Yuxarı", style: boldTextStyle(color: _scrollDirection == PdfScrollDirection.vertical ? Colors.white : textPrimaryColorGlobal)),
+                              child: Text(language.lblVertical, style: boldTextStyle(color: _scrollDirection == PdfScrollDirection.vertical ? Colors.white : textPrimaryColorGlobal)),
                             ),
                           ),
                         ),
@@ -265,11 +312,32 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
                                 borderRadius: radius(12),
                               ),
                               alignment: Alignment.center,
-                              child: Text("Sağa/Sola", style: boldTextStyle(color: _scrollDirection == PdfScrollDirection.horizontal ? Colors.white : textPrimaryColorGlobal)),
+                              child: Text(language.lblHorizontal, style: boldTextStyle(color: _scrollDirection == PdfScrollDirection.horizontal ? Colors.white : textPrimaryColorGlobal)),
                             ),
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  24.height,
+                  Text(language.lblFullScreen, style: boldTextStyle(size: 16)),
+                  16.height,
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      setState(() => _isFullScreen = true);
+                      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: primaryColor.withOpacity(0.1),
+                        borderRadius: radius(12),
+                        border: Border.all(color: primaryColor),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(language.lblFullScreen, style: boldTextStyle(color: primaryColor)),
                     ),
                   ),
                   20.height,
@@ -384,15 +452,22 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(widget.title, textSize: 18, color: primaryColor, textColor: Colors.white, showBack: true, actions: [
-        IconButton(
-          icon: Icon(Icons.settings, color: Colors.white),
-          onPressed: () {
-            _showReadingSettingsBottomSheet();
-          },
-        )
-      ]),
-      bottomNavigationBar: mWebBannerAds == '1' ? showBannerAds() : SizedBox(),
+      appBar: _isFullScreen ? null : appBarWidget(
+        widget.title,
+        textSize: 18,
+        color: primaryColor,
+        textColor: Colors.white,
+        showBack: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings, color: Colors.white),
+            onPressed: () {
+              _showReadingSettingsBottomSheet();
+            },
+          )
+        ],
+      ),
+      bottomNavigationBar: _isFullScreen ? null : (mWebBannerAds == '1' ? showBannerAds() : SizedBox()),
 
       body: Stack(
         children: [
@@ -460,6 +535,22 @@ class PDFViewerComponentState extends State<PDFViewerComponent> {
           // 🛡️ Anti-Offline Overlay (yalnız jetonla açılan kitablarda)
           if (widget.isUnlockedWithCoins && _isOffline)
             _buildOfflineBlocker(),
+            
+          if (_isFullScreen)
+            Positioned(
+              right: 20,
+              bottom: 20,
+              child: FloatingActionButton(
+                mini: true,
+                backgroundColor: _appBarColor.withOpacity(0.8),
+                elevation: 0,
+                child: Icon(Icons.fullscreen_exit, color: _appBarTextColor),
+                onPressed: () {
+                  setState(() => _isFullScreen = false);
+                  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                },
+              ),
+            ),
         ],
       ),
     );

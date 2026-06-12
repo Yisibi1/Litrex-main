@@ -56,6 +56,13 @@ abstract class BaseLanguage {
   String get lblLanguage;
   String get lblLanguageDesc;
 
+  // Reading Settings
+  String get lblReadingMode;
+  String get lblScrollDirection;
+  String get lblVertical;
+  String get lblHorizontal;
+  String get lblFullScreen;
+
   // YENİ EKLENENLER
   String get lblSearchAuthor;
   String get lblNoAuthorsFound;
@@ -235,4 +242,23 @@ abstract class BaseLanguage {
   String get lblRateUsMsg;
   String get lblRateNow;
   String get lblMaybeLater;
+
+  // Streak Screen
+  String get lblStreakDetails;
+  String get lblDay;
+  String get lblThisWeek;
+  String get lblAchievements;
+  String get lblCompleted;
+  String get lblReward;
+  String get lblDayStreak;
+  String get lblCoinsReward;
+  String get lblStreakInfoTitle;
+  String get lblStreakInfoMsg;
+  String get lblMon;
+  String get lblTue;
+  String get lblWed;
+  String get lblThu;
+  String get lblFri;
+  String get lblSat;
+  String get lblSun;
 }

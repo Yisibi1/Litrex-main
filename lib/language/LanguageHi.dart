@@ -154,6 +154,19 @@ class LanguageHi extends BaseLanguage {
   String get lblLanguage => "?????? ?? ??? ???? ????";
 
   @override
+  
+  @override
+  String get lblReadingMode => "Reading Mode";
+  @override
+  String get lblScrollDirection => "Scroll Direction";
+  @override
+  String get lblVertical => "Vertical";
+  @override
+  String get lblHorizontal => "Horizontal";
+  @override
+  String get lblFullScreen => "Full Screen";
+
+  @override
   String get lblLanguageDesc => "???? ???? ?????";
 
   // YENI EKLENENLER
@@ -323,6 +336,32 @@ class LanguageHi extends BaseLanguage {
   @override String get lblRateUsTitle => "Enjoying the App?";
   @override String get lblRateUsMsg => "If you like our app, please take a moment to rate it. It really helps us!";
   @override String get lblRateNow => "Rate Now";
-  @override String get lblMaybeLater => "Maybe Later";
+  @override 
+  // Streak Screen
+  @override String get lblStreakDetails => "Streak Details";
+  @override String get lblDay => "Day";
+  @override String get lblThisWeek => "This Week";
+  @override String get lblAchievements => "Achievements";
+  @override String get lblCompleted => "Completed";
+  @override String get lblReward => "Reward";
+  @override String get lblDayStreak => "Day Streak";
+  @override String get lblCoinsReward => "Coins";
+
+  @override String get lblStreakInfoTitle => "🔥 What is a Streak?";
+  @override 
+  @override String get lblMon => "Mon";
+  @override String get lblTue => "Tue";
+  @override String get lblWed => "Wed";
+  @override String get lblThu => "Thu";
+  @override String get lblFri => "Fri";
+  @override String get lblSat => "Sat";
+  @override String get lblSun => "Sun";
+
+  @override
+  String get lblStreakInfoMsg => "You can increase your streak by opening the app or reading a book every day.\n\n⚠️ Warning:\nIf you miss 1 day, the chain will break and your streak will reset.\n\n🎁 Reward:\nThe system will automatically reward you with coins when you reach certain milestones!";
+
+
+  @override
+  String get lblMaybeLater => "Maybe Later";
 
 }

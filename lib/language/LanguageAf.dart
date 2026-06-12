@@ -2,13 +2,13 @@ import 'BaseLanguage.dart';
 
 class LanguageAf extends BaseLanguage {
   @override
-  String get lblCategory => "Kategorie�";
+  String get lblCategory => "Kategorieë";
 
   @override
   String get lblFavourite => "Boekmerke";
 
   @override
-  String get lblPopular => "Popul�re boeke";
+  String get lblPopular => "Populêre boeke";
 
   @override
   String get lblLatest => "Nuutste boeke";
@@ -134,7 +134,7 @@ class LanguageAf extends BaseLanguage {
   String get lblWalk1Desc => "Lorem Ipsum is eenvoudig 'n dummy -teks van die druk- en tikbedryf.";
 
   @override
-  String get lblWalk2 => "Lees PDF -l�er";
+  String get lblWalk2 => "Lees PDF -lêer";
 
   @override
   String get lblWalk2Desc => "Lorem Ipsum is eenvoudig 'n dummy -teks van die druk- en tikbedryf.";
@@ -153,6 +153,19 @@ class LanguageAf extends BaseLanguage {
 
   @override
   String get lblLanguage => "Kies tale kies taal";
+
+  @override
+  
+  @override
+  String get lblReadingMode => "Reading Mode";
+  @override
+  String get lblScrollDirection => "Scroll Direction";
+  @override
+  String get lblVertical => "Vertical";
+  @override
+  String get lblHorizontal => "Horizontal";
+  @override
+  String get lblFullScreen => "Full Screen";
 
   @override
   String get lblLanguageDesc => "Kies u taal";
@@ -324,6 +337,32 @@ class LanguageAf extends BaseLanguage {
   @override String get lblRateUsTitle => "Enjoying the App?";
   @override String get lblRateUsMsg => "If you like our app, please take a moment to rate it. It really helps us!";
   @override String get lblRateNow => "Rate Now";
-  @override String get lblMaybeLater => "Maybe Later";
+  @override 
+  // Streak Screen
+  @override String get lblStreakDetails => "Streak Details";
+  @override String get lblDay => "Day";
+  @override String get lblThisWeek => "This Week";
+  @override String get lblAchievements => "Achievements";
+  @override String get lblCompleted => "Completed";
+  @override String get lblReward => "Reward";
+  @override String get lblDayStreak => "Day Streak";
+  @override String get lblCoinsReward => "Coins";
+
+  @override String get lblStreakInfoTitle => "🔥 What is a Streak?";
+  @override 
+  @override String get lblMon => "Mon";
+  @override String get lblTue => "Tue";
+  @override String get lblWed => "Wed";
+  @override String get lblThu => "Thu";
+  @override String get lblFri => "Fri";
+  @override String get lblSat => "Sat";
+  @override String get lblSun => "Sun";
+
+  @override
+  String get lblStreakInfoMsg => "You can increase your streak by opening the app or reading a book every day.\n\n⚠️ Warning:\nIf you miss 1 day, the chain will break and your streak will reset.\n\n🎁 Reward:\nThe system will automatically reward you with coins when you reach certain milestones!";
+
+
+  @override
+  String get lblMaybeLater => "Maybe Later";
 
 }

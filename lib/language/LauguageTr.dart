@@ -154,6 +154,19 @@ class LanguageTr extends BaseLanguage {
   String get lblLanguage => "Dil Seçin";
 
   @override
+  
+  @override
+  String get lblReadingMode => "Oxuma Rejimi";
+  @override
+  String get lblScrollDirection => "Sürüşdürmə Yönü";
+  @override
+  String get lblVertical => "Aşağı/Yuxarı";
+  @override
+  String get lblHorizontal => "Sağa/Sola";
+  @override
+  String get lblFullScreen => "Tam Ekran";
+
+  @override
   String get lblLanguageDesc => "Dilinizi seçin";
 
 // YENİ EKLENENLER
@@ -333,4 +346,23 @@ class LanguageTr extends BaseLanguage {
   @override String get lblRateUsMsg => "Uygulamamızı beğendiyseniz, lütfen bize 5 yıldız vererek destek olun!";
   @override String get lblRateNow => "Değerlendir";
   @override String get lblMaybeLater => "Daha Sonra";
+
+  // Streak Screen
+  @override String get lblStreakDetails => "Seri Detayları";
+  @override String get lblDay => "Gün";
+  @override String get lblThisWeek => "Bu Hafta";
+  @override String get lblAchievements => "Başarılar";
+  @override String get lblCompleted => "Tamamlandı";
+  @override String get lblReward => "Ödül";
+  @override String get lblDayStreak => "Günlük Seri";
+  @override String get lblCoinsReward => "Jeton";
+  @override String get lblStreakInfoTitle => "🔥 Seri (Streak) Nedir?";
+  @override String get lblStreakInfoMsg => "Her gün uygulamaya girerek veya kitap okuyarak serinizi artırabilirsiniz.\n\n⚠️ Dikkat:\nEğer peş peşe giriş yapmayıp 1 gün atlarsanız, zincir kırılır ve seriniz sıfırlanır.\n\n🎁 Ödül:\nBelirli hedeflere ulaştığınızda sistem size otomatik jeton hediye edecektir!";
+  @override String get lblMon => "Pzt";
+  @override String get lblTue => "Sal";
+  @override String get lblWed => "Çar";
+  @override String get lblThu => "Per";
+  @override String get lblFri => "Cum";
+  @override String get lblSat => "Cmt";
+  @override String get lblSun => "Paz";
 }
