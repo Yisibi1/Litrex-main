@@ -156,11 +156,11 @@ class LanguageTr extends BaseLanguage {
   @override
   
   @override
-  String get lblReadingMode => "Oxuma Rejimi";
+  String get lblReadingMode => "Okuma Modu";
   @override
-  String get lblScrollDirection => "Sürüşdürmə Yönü";
+  String get lblScrollDirection => "Kaydırma Yönü";
   @override
-  String get lblVertical => "Aşağı/Yuxarı";
+  String get lblVertical => "Aşağı/Yukarı";
   @override
   String get lblHorizontal => "Sağa/Sola";
   @override
