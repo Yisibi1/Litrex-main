@@ -6,6 +6,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../network/AuthApis.dart';
+import 'auth/LoginScreen.dart';
 import '../../main.dart';
 import '../../utils/Extensions/Widget_extensions.dart';
 import '../../utils/Extensions/decorations.dart';
@@ -33,14 +34,36 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
   List<ProductDetails> _products = [];
   bool _isAvailable = false;
   bool _isLoading = true;
-  String? _selectedProductId; // Track selected plan
+  String _selectedPlanKey = 'quarterly'; // Track selected plan: 'monthly' or 'quarterly'
 
-  // Google Play Console Product IDs
   // Google Play Console Product IDs
   final Set<String> _kIds = Platform.isIOS ? {'litrex_premium_monthly', 'litrex_premium_quarterly'} : {'premium_monthly', 'premium_quarterly', 'android.test.purchased'};
 
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
+
+  ProductDetails? get _monthlyProduct {
+    try {
+      return _products.firstWhere((p) => p.id.contains('monthly'));
+    } catch (e) {
+      try {
+        return _products.firstWhere((p) => p.id == 'android.test.purchased');
+      } catch (e) {
+        return _products.isNotEmpty ? _products[0] : null;
+      }
+    }
+  }
+
+  ProductDetails? get _quarterlyProduct {
+    try {
+      return _products.firstWhere((p) => p.id.contains('quarterly') || p.id.contains('3_months'));
+    } catch (e) {
+      if (_products.length > 1 && !_products[1].id.contains('monthly') && _products[1].id != 'android.test.purchased') {
+        return _products[1];
+      }
+      return null;
+    }
+  }
 
   @override
   void initState() {
@@ -83,10 +106,7 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
       setState(() {
         _isAvailable = isAvailable;
         _products = response.productDetails;
-        // Default select the second item (usually better value) or first
-        if (_products.isNotEmpty) {
-           _selectedProductId = _products.length > 1 ? _products[1].id : _products[0].id;
-        }
+        _selectedPlanKey = _quarterlyProduct != null ? 'quarterly' : 'monthly';
         _isLoading = false;
       });
     }
@@ -131,7 +151,7 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
              
              finish(context);
            } else {
-             toast("Doğrulama hatası: $error");
+             toast("Doğrulama hatası: $error\nLütfen 'Satın Alımları Geri Yükle' ile tekrar deneyin.");
              // Hata durumunda completePurchase yapmıyoruz, böylece tekrar denenebilir.
            }
         } else if (purchaseDetails.status == PurchaseStatus.canceled) {
@@ -218,6 +238,13 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
       toast("Yükleniyor, lütfen bekleyin...");
       return;
     }
+
+    if (!authStore.isLoggedIn) {
+      toast("Premium abunəlik üçün öncə hesabınıza daxil olmalısınız.");
+      LoginScreen().launch(context);
+      return;
+    }
+
     if (!_isAvailable) {
       toast("Mağaza bağlantısı yok. Lütfen Google Play Store'a giriş yapın.");
       return;
@@ -230,21 +257,13 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
         return;
     }
 
-    // Default to first available if selection failed
-    if (_selectedProductId == null && _products.isNotEmpty) {
-        _selectedProductId = _products[0].id;
-    }
-    
-    if (_selectedProductId != null) {
-        ProductDetails prod;
-        try {
-           prod = _products.firstWhere((p) => p.id == _selectedProductId);
-        } catch (e) {
-           prod = _products[0];
-        }
-        _buyProduct(prod);
+    ProductDetails? prod = (_selectedPlanKey == 'monthly') ? _monthlyProduct : _quarterlyProduct;
+    prod ??= _products.isNotEmpty ? _products[0] : null;
+
+    if (prod != null) {
+      _buyProduct(prod);
     } else {
-         toast("Ürün seçilemedi.");
+      toast("Ürün seçilemedi.");
     }
   }
 
@@ -499,7 +518,15 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
               style: secondaryTextStyle(color: Colors.white70),
               textAlign: TextAlign.center,
             ),
-            16.height,
+            12.height,
+            TextButton.icon(
+              onPressed: () {
+                setState(() => _isLoading = true);
+                _initStoreInfo();
+              },
+              icon: Icon(Icons.refresh, color: Colors.amber, size: 18),
+              label: Text("Yeniden Dene", style: primaryTextStyle(color: Colors.amber, size: 14)),
+            ),
             if (!_isAvailable)
               Text("Google Play Hizmetleri kullanılamıyor.", style: primaryTextStyle(color: Colors.redAccent, size: 12))
           ],
@@ -510,40 +537,21 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
     // Sort products by price (optional logic, usually monthly is cheaper total wise but we want to encourage annual/quarterly)
     // Logic: Identify Quarterly/Annual as "Best Value"
     
-    // Mapping mechanism:
-    // We expect IDs: 'premium_monthly' and 'premium_quarterly'
-    ProductDetails? monthly;
-    ProductDetails? quarterly;
-    
-    try {
-       monthly = _products.firstWhere((p) => p.id.contains('monthly'));
-    } catch (e) {
-      // Fallback for testing
-      try {
-        monthly = _products.firstWhere((p) => p.id == 'android.test.purchased');
-      } catch (e) {}
-    }
-    
-    try {
-       quarterly = _products.firstWhere((p) => p.id.contains('quarterly') || p.id.contains('3_months'));
-    } catch (e) {}
-
-    // Fallback if naming convention fails, just take first 2
-    if (monthly == null && _products.isNotEmpty) monthly = _products[0];
-    if (quarterly == null && _products.length > 1) quarterly = _products[1];
+    final monthly = _monthlyProduct;
+    final quarterly = _quarterlyProduct;
 
     if (monthly != null && quarterly != null) {
        return Row(
         children: [
           Expanded(child: _buildPlanOption(
-             id: monthly.id,
+             planKey: "monthly",
              title: "Aylık",
              price: monthly.price,
              subContext: "/ay",
              isBest: false
           )),
           Expanded(child: _buildPlanOption(
-             id: quarterly.id,
+             planKey: "quarterly",
              title: "3 Aylık",
              price: quarterly.price,
              subContext: "/3 ay",
@@ -554,10 +562,10 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
     } else if (monthly != null) {
        // Single plan available
        return _buildPlanOption(
-         id: monthly.id,
-         title: monthly.title,
+         planKey: "monthly",
+         title: "Aylık",
          price: monthly.price,
-         subContext: "",
+         subContext: "/ay",
          isBest: true
        );
     }
@@ -566,26 +574,18 @@ class _PremiumScreenState extends State<PremiumScreen> with SingleTickerProvider
   }
 
   Widget _buildPlanOption({
-    required String id, 
+    required String planKey, 
     required String title, 
     required String price, 
     required String subContext,
     required bool isBest
   }) {
-    // If nothing selected, select the 'Best' option by default
-    if (_selectedProductId == null && isBest) {
-        // We use Future.delayed to avoid setState during build
-        Future.delayed(Duration.zero, () {
-           if (mounted && _selectedProductId == null) setState(() => _selectedProductId = id);
-        });
-    }
-
-    bool isSelected = _selectedProductId == id;
+    bool isSelected = _selectedPlanKey == planKey;
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedProductId = id;
+          _selectedPlanKey = planKey;
         });
       },
       child: AnimatedContainer(

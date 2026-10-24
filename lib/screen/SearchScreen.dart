@@ -20,7 +20,8 @@ import 'BookDetailScreen.dart';
 import '../component/NativeAdWidget.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final String? initialSearch;
+  const SearchScreen({this.initialSearch, super.key});
 
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -38,6 +39,13 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    if (widget.initialSearch != null && widget.initialSearch!.isNotEmpty) {
+      searchCont.text = widget.initialSearch!;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        appStore.setLoading(true);
+        init();
+      });
+    }
     scrollController.addListener(() {
       scrollHandler();
     });
@@ -71,32 +79,39 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void catchData() {}
 
-  Future getAPI({String? data}) {
+  Future getAPI({String? data}) async {
     if (currentPage == 1) {
       mSearchList.clear();
       mBookList.clear();
     }
-    return getFilterBooks(searchText: data, page: currentPage).then((value) {
-      appStore.setLoading(false);
-      isLastPage = false;
+    
+    try {
+      var value = await getFilterBooks(searchText: data, page: currentPage);
+      if (!mounted) return;
       if (data != searchCont.text && data != null) return; // Prevent race conditions
       
       setState(() {
         mBookList.addAll(value);
         mSearchList = List.from(mBookList);
       });
-      if (currentPage == 1 && data != null && data.isNotEmpty) {
-        _searchAddons(data);
-      }
-    }).catchError((e) {
+      isLastPage = false;
+    } catch (e) {
       if (!mounted) return;
       isLastPage = true;
-      appStore.setLoading(false);
       log(e.toString());
-      if (currentPage == 1 && data != null && data.isNotEmpty) {
-        _searchAddons(data);
-      }
-    });
+    }
+
+    if (!mounted) return;
+    if (data != searchCont.text && data != null) return;
+
+    if (currentPage == 1 && data != null && data.isNotEmpty) {
+      await _searchAddons(data);
+    }
+    
+    if (!mounted) return;
+    if (data == searchCont.text || data == null) {
+      appStore.setLoading(false);
+    }
   }
 
   Future<void> _searchAddons(String query) async {
@@ -183,8 +198,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (mSearchList.isNotEmpty)
                   ListView.builder(
                     controller: scrollController,
-                    shrinkWrap: true,
-                    primary: false,
                     itemCount: mSearchList.length + (mSearchList.length ~/ 5),
                     padding: EdgeInsets.all(12),
                     itemBuilder: (_, i) {

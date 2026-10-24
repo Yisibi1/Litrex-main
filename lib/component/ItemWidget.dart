@@ -78,9 +78,16 @@ class ItemWidgetState extends State<ItemWidget> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.diamond, color: Colors.white, size: 12),
+                            Icon(
+                              Icons.diamond,
+                              color: Colors.white,
+                              size: 13,
+                            ),
                             4.width,
-                            Text("Premium", style: boldTextStyle(color: Colors.white, size: 10)),
+                            Text(
+                              "Premium",
+                              style: boldTextStyle(color: Colors.white, size: 10),
+                            ),
                           ],
                         ),
                       ),
@@ -89,14 +96,7 @@ class ItemWidgetState extends State<ItemWidget> {
               ),
               6.height,
               Text(parseHtmlStringWidget(widget.data.name!.trim()), textAlign: TextAlign.start, maxLines: 2, overflow: TextOverflow.ellipsis, style: primaryTextStyle()).paddingSymmetric(horizontal: 4),
-              if (widget.data.addonSource != null && widget.data.addonSource!.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 2.0, left: 4.0),
-                  child: Text(
-                    'Eklenti: ${widget.data.addonSource}',
-                    style: boldTextStyle(color: primaryColor, size: 10),
-                  ),
-                ),
+
             ],
           ),
         ),
@@ -128,21 +128,23 @@ class ItemWidgetState extends State<ItemWidget> {
                           color: Colors.amber,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                         child: Icon(Icons.diamond, color: Colors.white, size: 14),
+                         child: Row(
+                           mainAxisSize: MainAxisSize.min,
+                           children: [
+                             Icon(
+                               Icons.diamond,
+                               color: Colors.white,
+                               size: 13,
+                             ),
+                           ],
+                         ),
                       ),
                     ),
                 ],
               ),
               6.height,
               Text(parseHtmlStringWidget(widget.data.name!.trim()), textAlign: TextAlign.start, maxLines: 2, overflow: TextOverflow.ellipsis, style: primaryTextStyle()).paddingSymmetric(horizontal: 4),
-              if (widget.data.addonSource != null && widget.data.addonSource!.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 2.0, left: 4.0),
-                  child: Text(
-                    'Eklenti: ${widget.data.addonSource}',
-                    style: boldTextStyle(color: primaryColor, size: 10),
-                  ),
-                ),
+
             ],
           ),
         ),
@@ -172,7 +174,11 @@ class ItemWidgetState extends State<ItemWidget> {
                           color: Colors.amber,
                           shape: BoxShape.circle,
                         ),
-                         child: Icon(Icons.diamond, color: Colors.white, size: 12),
+                         child: Icon(
+                           Icons.diamond,
+                           color: Colors.white,
+                           size: 12,
+                         ),
                       ),
                     ),
               ],
@@ -202,14 +208,7 @@ class ItemWidgetState extends State<ItemWidget> {
                   ],
                 ),
                 Text(parseHtmlStringWidget(widget.data.description!.trim()), overflow: TextOverflow.ellipsis, textAlign: TextAlign.start, maxLines: 2, style: secondaryTextStyle()).paddingRight(16),
-                if (widget.data.addonSource != null && widget.data.addonSource!.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Text(
-                      'Eklenti: ${widget.data.addonSource}',
-                      style: boldTextStyle(color: primaryColor, size: 12),
-                    ),
-                  ),
+
               ],
             ).expand()
           ],

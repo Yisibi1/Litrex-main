@@ -8,6 +8,7 @@ import '../utils/Extensions/context_extensions.dart';
 import '../utils/Extensions/text_styles.dart';
 import '../utils/colors.dart';
 import '../screen/BookDetailScreen.dart';
+import '../utils/appWidget.dart';
 
 class ContinueReadingWidget extends StatefulWidget {
   const ContinueReadingWidget({super.key});
@@ -61,8 +62,7 @@ class _ContinueReadingWidgetState extends State<ContinueReadingWidget> {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: book.logo != null && book.logo!.isNotEmpty
-                  ? Image.network(book.logo!, height: 80, width: 60, fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Container(color: Colors.grey[800], height: 80, width: 60))
+                  ? cachedImage(book.logo, height: 80, width: 60, fit: BoxFit.cover)
                   : Container(color: Colors.grey[800], height: 80, width: 60),
             ),
             12.width,

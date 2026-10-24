@@ -19,6 +19,8 @@ import '../utils/OfflineReadingService.dart';
 import '../network/AuthApis.dart';
 import 'DashboardScreen.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'dart:io';
+import 'package:screen_protector/screen_protector.dart';
 
 class SplashScreen extends StatefulWidget {
   static String tag = '/SplashScreen';
@@ -41,6 +43,16 @@ class SplashScreenState extends State<SplashScreen> {
     
     // AdMob initialize (Tətbiq tam açıldıqdan sonra arxaplanda işə düşür)
     MobileAds.instance.initialize();
+    
+    // Screenshot Protection
+    if (Platform.isAndroid) {
+      int allowScreenshot = getIntAsync(ALLOW_SCREENSHOT, defaultValue: 0);
+      if (allowScreenshot == 0) {
+        await ScreenProtector.protectDataLeakageOn();
+      } else {
+        await ScreenProtector.protectDataLeakageOff();
+      }
+    }
     
     // Auth durumunu yükle
     await authStore.loadUserFromPrefs();
@@ -137,7 +149,7 @@ class SplashScreenState extends State<SplashScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(child: Image.asset(ic_logo, fit: BoxFit.fill, color: Colors.white, width: 100, height: 100)),
+          Container(child: Image.asset('asset/litrex_logo.png', fit: BoxFit.contain, width: 120, height: 120)),
           16.height,
           Text(AppName, style: boldTextStyle(size: 26, color: Colors.white)),
         ],

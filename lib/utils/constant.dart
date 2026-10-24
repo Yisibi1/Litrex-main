@@ -73,6 +73,9 @@ const AD_REWARD_COINS = 'ad_reward_coins';
 const PDF_AD_PAGE_INTERVAL = 'pdf_ad_page_interval';
 const MIN_APP_VERSION_CODE = 'min_app_version_code';
 const PLAY_STORE_URL = 'play_store_url';
+const ADDON_BANNER_IMAGE = 'ADDON_BANNER_IMAGE';
+const ADDON_BANNER_URL = 'ADDON_BANNER_URL';
+const ALLOW_SCREENSHOT = 'allow_screenshot';
 const WISHLIST_ITEM_LIST = 'WISHLIST_ITEM_LIST';
 const IS_NOTIFICATION_ON = "IS_NOTIFICATION_ON";
 

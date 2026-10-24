@@ -276,111 +276,125 @@ class _CoinPurchaseScreenState extends State<CoinPurchaseScreen> {
                   Text('Paketler', style: boldTextStyle(size: 16)),
                   12.height,
 
-                  if (_packages.isEmpty)
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(32),
-                        child: Text(
-                          'Satın alınabilir paket bulunamadı.',
-                          style: secondaryTextStyle(),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )
-                  else
-                    ..._packages.map((pkg) {
-                      final product = pkg.sku != null ? _productDetailsBySku[pkg.sku] : null;
-                      final price = product?.price ?? pkg.displayPrice ?? '—';
-                      final isPurchasing = _purchasingSku == pkg.sku;
-                      final canBuy = _isStoreAvailable && product != null && !isPurchasing;
+                  Builder(
+                    builder: (context) {
+                      final isAndroid = Theme.of(context).platform == TargetPlatform.android;
+                      final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+                      
+                      final visiblePackages = _packages.where((pkg) {
+                        return _isStoreAvailable && pkg.sku != null && _productDetailsBySku.containsKey(pkg.sku);
+                      }).toList();
 
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 12),
-                        decoration: BoxDecoration(
-                          color: appStore.isDarkModeOn
-                              ? Colors.white.withOpacity(0.06)
-                              : Colors.white,
-                          borderRadius: radius(16),
-                          border: Border.all(
-                            color: canBuy
-                                ? Color(0xFFF5A623).withOpacity(0.4)
-                                : Colors.grey.withOpacity(0.2),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.04),
-                              blurRadius: 8,
-                              offset: Offset(0, 2),
+                      if (visiblePackages.isEmpty) {
+                        return Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(32),
+                            child: Text(
+                              'Satın alınabilir paket bulunamadı.',
+                              style: secondaryTextStyle(),
+                              textAlign: TextAlign.center,
                             ),
-                          ],
-                        ),
-                        child: Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: canBuy ? () => _buyPackage(pkg, product) : null,
-                            borderRadius: radius(16),
-                            child: Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 52,
-                                    height: 52,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFF5A623).withOpacity(0.15),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(child: Icon(Icons.monetization_on_rounded, size: 28, color: Color(0xFFF5A623))),
-                                  ),
-                                  16.width,
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          pkg.title.validate().isNotEmpty
-                                              ? pkg.title!
-                                              : '${pkg.coinAmount ?? 0} Jeton',
-                                          style: boldTextStyle(size: 15),
-                                        ),
-                                        4.height,
-                                        Text(
-                                          '${pkg.coinAmount ?? 0} jeton',
-                                          style: secondaryTextStyle(size: 13),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                          ),
+                        );
+                      }
+
+                      return Column(
+                        children: visiblePackages.map((pkg) {
+                          final product = pkg.sku != null ? _productDetailsBySku[pkg.sku] : null;
+                          final price = product?.price ?? pkg.displayPrice ?? '—';
+                          final isPurchasing = _purchasingSku == pkg.sku;
+                          final canBuy = _isStoreAvailable && product != null && !isPurchasing;
+
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 12),
+                            decoration: BoxDecoration(
+                              color: appStore.isDarkModeOn
+                                  ? Colors.white.withOpacity(0.06)
+                                  : Colors.white,
+                              borderRadius: radius(16),
+                              border: Border.all(
+                                color: canBuy
+                                    ? Color(0xFFF5A623).withOpacity(0.4)
+                                    : Colors.grey.withOpacity(0.2),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.04),
+                                  blurRadius: 8,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                onTap: canBuy ? () => _buyPackage(pkg, product) : null,
+                                borderRadius: radius(16),
+                                child: Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Row(
                                     children: [
-                                      Text(
-                                        price,
-                                        style: boldTextStyle(size: 16, color: primaryColor),
+                                      Container(
+                                        width: 52,
+                                        height: 52,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFF5A623).withOpacity(0.15),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Center(child: Icon(Icons.monetization_on_rounded, size: 28, color: Color(0xFFF5A623))),
                                       ),
-                                      if (canBuy)
-                                        isPurchasing
-                                            ? SizedBox(
-                                                width: 20,
-                                                height: 20,
-                                                child: CircularProgressIndicator(
-                                                  strokeWidth: 2,
-                                                  color: primaryColor,
-                                                ),
-                                              )
-                                            : Text(
-                                                'Satın al',
-                                                style: secondaryTextStyle(size: 12, color: primaryColor),
-                                              ),
+                                      16.width,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              pkg.title.validate().isNotEmpty
+                                                  ? pkg.title!
+                                                  : '${pkg.coinAmount ?? 0} Jeton',
+                                              style: boldTextStyle(size: 15),
+                                            ),
+                                            4.height,
+                                            Text(
+                                              '${pkg.coinAmount ?? 0} jeton',
+                                              style: secondaryTextStyle(size: 13),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            price,
+                                            style: boldTextStyle(size: 16, color: primaryColor),
+                                          ),
+                                          if (canBuy)
+                                            isPurchasing
+                                                ? SizedBox(
+                                                    width: 20,
+                                                    height: 20,
+                                                    child: CircularProgressIndicator(
+                                                      strokeWidth: 2,
+                                                      color: primaryColor,
+                                                    ),
+                                                  )
+                                                : Text(
+                                                    'Satın al',
+                                                    style: secondaryTextStyle(size: 12, color: primaryColor),
+                                                  ),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        }).toList(),
                       );
-                    }),
+                    },
+                  ),
 
                   24.height,
 

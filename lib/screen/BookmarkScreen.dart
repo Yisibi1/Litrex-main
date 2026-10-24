@@ -66,8 +66,6 @@ class BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvide
     if (books.isEmpty) return noDataWidget(context);
 
     return ListView.builder(
-      shrinkWrap: true,
-      primary: false,
       itemCount: books.length,
       padding: EdgeInsets.only(left: 12, right: 16, top: 16, bottom: 8),
       itemBuilder: (_, i) {
@@ -110,8 +108,6 @@ class BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvide
     if (books.isEmpty) return noDataWidget(context);
 
     return ListView.builder(
-      shrinkWrap: true,
-      primary: false,
       itemCount: books.length,
       padding: EdgeInsets.only(left: 12, right: 16, top: 16, bottom: 8),
       itemBuilder: (_, i) {

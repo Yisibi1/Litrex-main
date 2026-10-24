@@ -134,11 +134,9 @@ class GetStaredScreenState extends State<GetStaredScreen> {
               right: 0,
               child: GestureDetector(
                 onTap: () {
-                  if (getStringAsync(PRIVACY_POLICY_PREF).isNotEmpty) {
-                    WebViewScreen(title: language.lblPrivacyPolicy, mInitialUrl: getStringAsync(PRIVACY_POLICY_PREF)).launch(context);
-                  } else {
-                    toast(language.lblUrlEmpty);
-                  }
+                  String url = getStringAsync(PRIVACY_POLICY_PREF);
+                  if (url.isEmpty) url = 'https://litresfer.com/privacy.html';
+                  WebViewScreen(title: language.lblPrivacyPolicy, mInitialUrl: url).launch(context);
                 },
                 child: Text(
                   language.lblPrivacyPolicy,

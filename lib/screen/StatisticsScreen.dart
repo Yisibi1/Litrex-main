@@ -274,7 +274,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: allSessions.length,
+                itemCount: allSessions.length > 50 ? 50 : allSessions.length,
                 itemBuilder: (context, index) {
                   final session = allSessions[index];
                   final isToday = session.endTime.day == DateTime.now().day && session.endTime.month == DateTime.now().month;

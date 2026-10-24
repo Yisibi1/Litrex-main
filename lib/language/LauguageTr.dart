@@ -348,6 +348,21 @@ class LanguageTr extends BaseLanguage {
   @override String get lblMaybeLater => "Daha Sonra";
 
   // Streak Screen
+  @override 
+  // Quotes
+  @override String get lblDesignQuote => "Alıntılara Ekle";
+  @override String get lblQuoteDesigner => "Alıntı Stüdyosu";
+  @override String get lblChooseBackground => "Arka Plan Seçin";
+  @override String get lblShareAsImage => "Görsel Olarak Paylaş";
+  @override String get lblMyQuotes => "Alıntılarım";
+    @override String get lblAllQuotes => "Hepsi";
+  @override String get lblNoQuotesFound => "Henüz bir alıntı kaydetmediniz.";
+
+  @override 
+  @override String get lblNoQuoteForThisBook => "Bu kitaba ait alıntı yok";
+  @override String get lblDeleteQuoteConfirmTitle => "Silmek istediğinize emin misiniz?";
+  @override String get lblDeleteQuoteConfirmMsg => "Bu alıntı silinecek.";
+
   @override String get lblStreakDetails => "Seri Detayları";
   @override String get lblDay => "Gün";
   @override String get lblThisWeek => "Bu Hafta";
@@ -365,4 +380,14 @@ class LanguageTr extends BaseLanguage {
   @override String get lblFri => "Cum";
   @override String get lblSat => "Cmt";
   @override String get lblSun => "Paz";
+
+  @override String get lblLoadedFromDevice => "Cihazdan Yüklendi";
+
+  // VIP Exclusive Premium
+  @override String get lblVipPremium => "VIP Özel";
+  @override String get lblVipPremiumTitle => "VIP Premium İçerik";
+  @override String get lblVipPremiumDesc => "Bu kitap yalnızca Premium üyelere özeldir. Reklamsız ve sınırsız okumak için Premium'a geçin!";
+  @override String get lblVipExclusiveBadge => "VIP";
+  @override String get lblSubscribeToUnlock => "Premium İle Oku";
+  @override String get lblCoinsNotAccepted => "Bu özel kitap için jeton kullanılamaz";
 }

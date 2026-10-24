@@ -17,6 +17,10 @@ import '../utils/constant.dart';
 import '../utils/images.dart';
 import 'BookDetailScreen.dart';
 
+import 'dart:convert';
+import '../network/NetworkUtils.dart';
+import '../utils/Extensions/shared_pref.dart';
+
 class AuthorDetailScreen extends StatefulWidget {
   static String tag = '/AuthorDetailScreen';
   final Author data;
@@ -61,6 +65,10 @@ class AuthorDetailScreenState extends State<AuthorDetailScreen> {
 
       setState(() {});
 
+    }).whenComplete(() {
+      if (widget.data.name != null && widget.data.name!.isNotEmpty) {
+        _fetchAddonBooks(widget.data.name!);
+      }
     });
 
     FacebookAudienceNetwork.init(
@@ -69,6 +77,59 @@ class AuthorDetailScreenState extends State<AuthorDetailScreen> {
     );
 
     if (mAuthorDetailInterstitialAds == '1') loadInterstitialAds();
+  }
+
+  Future<void> _fetchAddonBooks(String authorName) async {
+    List<String> urls = getStringListAsync('addon_urls') ?? [];
+    String legacyUrl = getStringAsync('addon_url');
+    if (legacyUrl.isNotEmpty && !urls.contains(legacyUrl)) {
+      urls.add(legacyUrl);
+    }
+    
+    urls = urls.toSet().toList();
+    if (urls.isEmpty) return;
+
+    List<Future<void>> futures = urls.map((url) async {
+      try {
+        var manifestRes = await httpGetWithAddonHeaders(url, timeout: Duration(seconds: 8));
+        if (manifestRes.statusCode == 200) {
+          var manifest = jsonDecode(manifestRes.body);
+          String addonName = manifest['name'] ?? 'Harici Eklenti';
+          String searchUrl = manifest['endpoints']['search'];
+          
+          String cleanAuthorName = authorName;
+          if (cleanAuthorName.contains('\n(Eklenti:')) {
+            cleanAuthorName = cleanAuthorName.split('\n(Eklenti:').first.trim();
+          }
+          
+          var searchRes = await httpGetWithAddonHeaders(searchUrl + Uri.encodeComponent(cleanAuthorName), timeout: Duration(seconds: 8));
+          if (searchRes.statusCode == 200) {
+            var searchData = jsonDecode(searchRes.body);
+            if (searchData['data'] != null) {
+              List<Book> books = (searchData['data'] as List).map((e) {
+                Book book = Book.fromJson(e);
+                book.addonSource = addonName;
+                return book;
+              }).toList();
+              
+              if (mounted) {
+                setState(() {
+                  for (var b in books) {
+                    if (!mBookList.any((existing) => existing.id == b.id)) {
+                      mBookList.add(b);
+                    }
+                  }
+                });
+              }
+            }
+          }
+        }
+      } catch (e) {
+        log("Addon author search error ($url): $e");
+      }
+    }).toList();
+
+    await Future.wait(futures);
   }
 
   @override
@@ -126,9 +187,9 @@ class AuthorDetailScreenState extends State<AuthorDetailScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.data.name.toString(), style: boldTextStyle(color: primaryColor, size: 18)),
+                    Text((widget.data.name ?? '').split('\n(Eklenti:').first.trim(), style: boldTextStyle(color: primaryColor, size: 18)),
                     4.height,
-                    Text(widget.data.designation.toString(), style: secondaryTextStyle(), maxLines: 2),
+                    Text(widget.data.designation ?? '', style: secondaryTextStyle(), maxLines: 2),
                     8.height,
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,19 +197,19 @@ class AuthorDetailScreenState extends State<AuthorDetailScreen> {
                       children: [
                         mIcon(ic_facebook, () {
                           launch(widget.data.facebookUrl!);
-                        }).visible(widget.data.facebookUrl!.isNotEmpty),
+                        }).visible(widget.data.facebookUrl?.isNotEmpty ?? false),
                         mIcon(ic_insta, () {
                           launch(widget.data.instagramUrl!);
-                        }).visible(widget.data.instagramUrl!.isNotEmpty),
+                        }).visible(widget.data.instagramUrl?.isNotEmpty ?? false),
                         mIcon(ic_twitter, () {
                           launch(widget.data.twitterUrl!);
-                        }).visible(widget.data.twitterUrl!.isNotEmpty),
+                        }).visible(widget.data.twitterUrl?.isNotEmpty ?? false),
                         mIcon(ic_youtube, () {
                           launch(widget.data.youtubeUrl!);
-                        }).visible(widget.data.youtubeUrl!.isNotEmpty),
+                        }).visible(widget.data.youtubeUrl?.isNotEmpty ?? false),
                         mIcon(ic_web, () {
                           launch(widget.data.websiteUrl!);
-                        }).visible(widget.data.websiteUrl!.isNotEmpty),
+                        }).visible(widget.data.websiteUrl?.isNotEmpty ?? false),
                       ],
                     )
                   ],
@@ -157,7 +218,7 @@ class AuthorDetailScreenState extends State<AuthorDetailScreen> {
             ),
           ),
           Text(language.lblAbout, style: boldTextStyle(size: 20)).paddingOnly(left: 16),
-          Text(widget.data.description.toString(), style: secondaryTextStyle()).paddingOnly(left: 16, right: 16, top: 8, bottom: 16),
+          Text(widget.data.description ?? '', style: secondaryTextStyle()).paddingOnly(left: 16, right: 16, top: 8, bottom: 16),
           if (mBookList.isNotEmpty)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

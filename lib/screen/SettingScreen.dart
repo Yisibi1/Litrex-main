@@ -172,30 +172,26 @@ class SettingScreenState extends State<SettingScreen> {
               title: language.lblPrivacyPolicy,
               trailing: mTailingIcon(),
               onTap: () {
-                if (getStringAsync(PRIVACY_POLICY_PREF).isNotEmpty) {
-                  WebViewScreen(
-                          title: language.lblPrivacyPolicy,
-                          mInitialUrl: getStringAsync(PRIVACY_POLICY_PREF))
-                      .launch(context);
-                } else {
-                  toast(language.lblUrlEmpty);
-                }
+                String url = getStringAsync(PRIVACY_POLICY_PREF);
+                if (url.isEmpty) url = 'https://litresfer.com/privacy.html';
+                WebViewScreen(
+                        title: language.lblPrivacyPolicy,
+                        mInitialUrl: url)
+                    .launch(context);
               },
-            ).visible(!getStringAsync(PRIVACY_POLICY_PREF).isEmptyOrNull),
+            ),
             SettingItemWidget(
               title: language.lblTermsCondition,
               trailing: mTailingIcon(),
               onTap: () async {
-                if (getStringAsync(TERMS_AND_CONDITION_PREF).isNotEmpty) {
-                  WebViewScreen(
-                          title: language.lblTermsCondition,
-                          mInitialUrl: getStringAsync(TERMS_AND_CONDITION_PREF))
-                      .launch(context);
-                } else {
-                  toast(language.lblUrlEmpty);
-                }
+                String url = getStringAsync(TERMS_AND_CONDITION_PREF);
+                if (url.isEmpty) url = 'https://litresfer.com/privacy.html';
+                WebViewScreen(
+                        title: language.lblTermsCondition,
+                        mInitialUrl: url)
+                    .launch(context);
               },
-            ).visible(!getStringAsync(TERMS_AND_CONDITION_PREF).isEmptyOrNull),
+            ),
             SettingItemWidget(
               title: language.lblAboutUs,
               trailing: mTailingIcon(),

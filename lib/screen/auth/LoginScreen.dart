@@ -269,23 +269,25 @@ class LoginScreenState extends State<LoginScreen> with SingleTickerProviderState
                       
                       // Logo ve Başlık
                       Container(
-                        padding: EdgeInsets.all(isSmallScreen ? 14 : 18),
+                        padding: EdgeInsets.all(isSmallScreen ? 10 : 14),
                         decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: Colors.white,
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: primaryColor.withOpacity(0.4),
+                              color: primaryColor.withOpacity(0.25),
                               blurRadius: 20,
                               offset: Offset(0, 8),
                             ),
                           ],
                         ),
-                        child: Image.asset(
-                          ic_logo,
-                          width: isSmallScreen ? 40 : 50,
-                          height: isSmallScreen ? 40 : 50,
-                          color: Colors.white,
+                        child: ClipOval(
+                          child: Image.asset(
+                            litrex_logo,
+                            width: isSmallScreen ? 48 : 58,
+                            height: isSmallScreen ? 48 : 58,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                       SizedBox(height: isSmallScreen ? 12 : 16),

@@ -41,11 +41,23 @@ Widget cachedImage(String? url, {double? height, Color? color, double? width, Bo
       width: width,
       fit: fit,
       color: color,
+      memCacheHeight: 600,
       alignment: alignment as Alignment? ?? Alignment.center,
       errorWidget: (_, s, d) {
         return placeHolderWidget(height: height, width: width, fit: fit, alignment: alignment, radius: radius);
       },
     );
+  } else if (url.validate().startsWith('/') || url.validate().startsWith('file://')) {
+    return Image.file(
+      File(url!.replaceFirst('file://', '')),
+      height: height,
+      width: width,
+      fit: fit,
+      color: color,
+      cacheHeight: 600,
+      alignment: alignment ?? Alignment.center,
+      errorBuilder: (_, __, ___) => placeHolderWidget(height: height, width: width, fit: fit, alignment: alignment, radius: radius),
+    ).cornerRadiusWithClipRRect(radius ?? defaultRadius);
   } else {
     return Image.asset(url!, height: height, width: width, fit: fit, alignment: alignment ?? Alignment.center).cornerRadiusWithClipRRect(radius ?? defaultRadius);
   }

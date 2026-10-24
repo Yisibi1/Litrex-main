@@ -244,6 +244,21 @@ abstract class BaseLanguage {
   String get lblMaybeLater;
 
   // Streak Screen
+  
+  // Quotes
+  String get lblDesignQuote;
+  String get lblQuoteDesigner;
+  String get lblChooseBackground;
+  String get lblShareAsImage;
+  String get lblMyQuotes;
+    String get lblAllQuotes;
+  String get lblNoQuotesFound;
+
+  
+  String get lblNoQuoteForThisBook;
+  String get lblDeleteQuoteConfirmTitle;
+  String get lblDeleteQuoteConfirmMsg;
+
   String get lblStreakDetails;
   String get lblDay;
   String get lblThisWeek;
@@ -261,4 +276,15 @@ abstract class BaseLanguage {
   String get lblFri;
   String get lblSat;
   String get lblSun;
+
+  // External Files
+  String get lblLoadedFromDevice;
+
+  // VIP Exclusive Premium
+  String get lblVipPremium;
+  String get lblVipPremiumTitle;
+  String get lblVipPremiumDesc;
+  String get lblVipExclusiveBadge;
+  String get lblSubscribeToUnlock;
+  String get lblCoinsNotAccepted;
 }

@@ -1,5 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import '../network/AuthApis.dart';
+import '../model/DashboardResponse.dart';
+import '../store/LibraryStore.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdfx/pdfx.dart' as pdfx;
+import 'package:syncfusion_flutter_pdf/pdf.dart' as sync_pdf;
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import '../component/PDFViewerComponent.dart';
@@ -50,6 +57,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   ];
 
   Timer? _sessionTimer;
+  StreamSubscription? _intentSubscription;
   
   // Reklam limiti state
   bool _adLimitReached = false;
@@ -81,6 +89,114 @@ class DashboardScreenState extends State<DashboardScreen> {
     createRewardedAd();
     _startSessionCheck();
     _restoreLimitState(); // SharedPreferences-dən limit vəziyyətini bərpa et
+    
+    // Kənardan paylaşılan PDF-ləri dinlə (App qapalıykən)
+    ReceiveSharingIntent.instance.getInitialMedia().then((List<SharedMediaFile> value) {
+      if (value.isNotEmpty && mounted) {
+        _openSharedFile(value.first);
+      }
+    });
+
+    // Kənardan paylaşılan PDF-ləri dinlə (App açıqkən/arxaplandaykən)
+    _intentSubscription = ReceiveSharingIntent.instance.getMediaStream().listen((List<SharedMediaFile> value) {
+      if (value.isNotEmpty && mounted) {
+        _openSharedFile(value.first);
+      }
+    });
+  }
+
+  void _openSharedFile(SharedMediaFile sharedFile) async {
+    String path = sharedFile.path;
+    if (path.isNotEmpty) {
+      // Bəzi cihazlarda path 'file://' ilə başlaya bilər
+      if (path.startsWith('file://')) {
+        path = path.replaceFirst('file://', '');
+      }
+      
+      // Boşluqlar '%20' kimi kodlanmış ola bilər, ona görə decode edirik
+      path = Uri.decodeFull(path);
+      
+      try {
+        File file = File(path);
+        
+        String fileName = path.split('/').last;
+
+        if (fileName.toLowerCase().endsWith('.json')) {
+          _showLocalAddonPromptDialog(path, fileName);
+          return;
+        }
+        
+        String _cleanFileName(String name) {
+          String text = name.replaceAll('.pdf', '').replaceAll('-', ' ').replaceAll('_', ' ');
+          text = text.replaceAll(RegExp(r'pdf indir|pdf|epub|mobi|indir', caseSensitive: false), '').trim();
+          if (text.isEmpty) return "Bilinmeyen Kitap";
+          return text.split(' ').map((word) => word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}' : '').join(' ');
+        }
+
+        String extractedTitle = _cleanFileName(fileName);
+        String extractedAuthor = "Bilinmeyen Yazar";
+        
+        // Extract Metadata using Syncfusion PDF (yalnız 10 MB-dan kiçik fayllar üçün OOM-un qarşısını almaq üçün)
+        try {
+          if (file.existsSync() && file.lengthSync() < 10 * 1024 * 1024) {
+            var bytes = await file.readAsBytes();
+            final syncDoc = sync_pdf.PdfDocument(inputBytes: bytes);
+            if (syncDoc.documentInformation.title.isNotEmpty) {
+               extractedTitle = syncDoc.documentInformation.title;
+            }
+            if (syncDoc.documentInformation.author.isNotEmpty) {
+               extractedAuthor = syncDoc.documentInformation.author;
+            }
+            syncDoc.dispose();
+          }
+        } catch (e) {
+          print("Metadata extraction error: $e");
+        }
+        
+        String logoPath = "";
+        try {
+          final tempDir = await getTemporaryDirectory();
+          logoPath = "${tempDir.path}/thumb_${path.hashCode}.png";
+          File thumbFile = File(logoPath);
+          if (!thumbFile.existsSync()) {
+            final document = await pdfx.PdfDocument.openFile(path);
+            final page = await document.getPage(1);
+            final pageImage = await page.render(width: page.width / 2, height: page.height / 2, format: pdfx.PdfPageImageFormat.png);
+            if (pageImage != null) {
+              await thumbFile.writeAsBytes(pageImage.bytes);
+            }
+            await page.close();
+            await document.close();
+          }
+        } catch (e) {
+          print("Thumb generation error: $e");
+        }
+        
+        // Virtual Kitab yarat (Son Oxunanlar üçün)
+        Book virtualBook = Book(
+          id: "local_${path.hashCode}",
+          name: extractedTitle,
+          url: path,
+          logo: logoPath,
+          authorName: extractedAuthor, 
+          addonSource: "external_file"
+        );
+        
+        // Kitabxanaya "Son Oxunan" olaraq əlavə et
+        libraryStore.addBook(virtualBook, LibraryStatus.reading);
+        
+        // PDF Ekranını Aç (fileBytes null ötürülür ki, SfPdfViewer.file işləsin, RAM dolmasın)
+        PDFViewerComponent(
+          title: fileName,
+          url: path, 
+          fileBytes: null,
+          book: virtualBook,
+        ).launch(context);
+        
+      } catch (e) {
+        toast("${language.lblErrorOpeningBook}\nXəta: $e");
+      }
+    }
   }
 
   /// SharedPreferences-dən limit vəziyyətini bərpa et (app restart-da taymer itməsin)
@@ -425,6 +541,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   
   @override
   void dispose() {
+    _intentSubscription?.cancel();
     _sessionTimer?.cancel();
     _countdownTimer?.cancel();
     super.dispose();
@@ -547,6 +664,70 @@ class DashboardScreenState extends State<DashboardScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  void _showLocalAddonPromptDialog(String localPath, String addonName) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Text(language.lblAddNewAddon, style: boldTextStyle(size: 18)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Bu eklentiyi (Addon) eklemek istiyor musunuz?", style: secondaryTextStyle()),
+            12.height,
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                addonName,
+                style: primaryTextStyle(size: 13, fontFamily: 'monospace'),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(language.lblCancel, style: primaryTextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              List<String> urls = getStringListAsync('addon_urls') ?? [];
+              String addonUrl = "file://$localPath";
+
+              if (urls.contains(addonUrl)) {
+                toast(language.lblUrlAlreadyExists);
+                return;
+              }
+
+              if (urls.length >= 5) {
+                toast(language.lblMaxAddonsLimit);
+                return;
+              }
+
+              urls.add(addonUrl);
+              await setValue('addon_urls', urls);
+              toast(language.lblAddonAddedSuccess);
+              
+              // Refresh app by restarting Dashboard
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardScreen()), (route) => false);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: primaryColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            ),
+            child: Text(language.lblYes, style: boldTextStyle(color: Colors.white, size: 14)),
+          ),
+        ],
       ),
     );
   }

@@ -315,25 +315,27 @@ Future<void> _handleGoogleRegister() async {
                 children: [
                   SizedBox(height: isSmallScreen ? 16 : 30),
 
-                  // Başlık
+                  // Logo ve Başlık
                   Container(
-                    padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
+                    padding: EdgeInsets.all(isSmallScreen ? 10 : 14),
                     decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: Colors.white,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: primaryColor.withOpacity(0.4),
+                          color: primaryColor.withOpacity(0.25),
                           blurRadius: 20,
                           offset: Offset(0, 8),
                         ),
                       ],
                     ),
-                    child: Image.asset(
-                      ic_logo,
-                      width: isSmallScreen ? 35 : 45,
-                      height: isSmallScreen ? 35 : 45,
-                      color: Colors.white,
+                    child: ClipOval(
+                      child: Image.asset(
+                        litrex_logo,
+                        width: isSmallScreen ? 44 : 52,
+                        height: isSmallScreen ? 44 : 52,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                   SizedBox(height: isSmallScreen ? 10 : 14),
@@ -662,11 +664,9 @@ Future<void> _handleGoogleRegister() async {
                       text: language.lblTermsOfService,
                       style: boldTextStyle(color: primaryColor, size: 13),
                       recognizer: TapGestureRecognizer()..onTap = () {
-                        if (getStringAsync(TERMS_AND_CONDITION_PREF).isNotEmpty) {
-                          WebViewScreen(title: language.lblTermsOfService, mInitialUrl: getStringAsync(TERMS_AND_CONDITION_PREF)).launch(context);
-                        } else {
-                          toast(language.lblUrlEmpty);
-                        }
+                        String url = getStringAsync(TERMS_AND_CONDITION_PREF);
+                        if (url.isEmpty) url = 'https://litresfer.com/privacy.html';
+                        WebViewScreen(title: language.lblTermsOfService, mInitialUrl: url).launch(context);
                       },
                     ),
                     TextSpan(text: ' ${language.lblAnd} '),
@@ -674,11 +674,9 @@ Future<void> _handleGoogleRegister() async {
                       text: language.lblPrivacyPolicy,
                       style: boldTextStyle(color: primaryColor, size: 13),
                       recognizer: TapGestureRecognizer()..onTap = () {
-                        if (getStringAsync(PRIVACY_POLICY_PREF).isNotEmpty) {
-                          WebViewScreen(title: language.lblPrivacyPolicy, mInitialUrl: getStringAsync(PRIVACY_POLICY_PREF)).launch(context);
-                        } else {
-                          toast(language.lblUrlEmpty);
-                        }
+                        String url = getStringAsync(PRIVACY_POLICY_PREF);
+                        if (url.isEmpty) url = 'https://litresfer.com/privacy.html';
+                        WebViewScreen(title: language.lblPrivacyPolicy, mInitialUrl: url).launch(context);
                       },
                     ),
                   ],

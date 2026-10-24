@@ -48,7 +48,7 @@ class AuthorComponentState extends State<AuthorComponent> {
                 ? CircleAvatar(backgroundImage: NetworkImage(widget.data.imageUrl!), radius: 55, backgroundColor: context.cardColor)
                 : CircleAvatar(backgroundImage: AssetImage(ic_placeholder), radius: 55, backgroundColor: context.cardColor),
             4.height,
-            Text(widget.data.name!, style: primaryTextStyle()),
+            Text(widget.data.name!.split('\n(Eklenti:').first.trim(), style: primaryTextStyle(), textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
           ],
         ),
       ),

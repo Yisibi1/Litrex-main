@@ -8,6 +8,7 @@ import '../utils/Extensions/Commons.dart';
 import '../utils/Extensions/Constants.dart';
 import '../utils/Extensions/decorations.dart';
 import '../utils/Extensions/text_styles.dart';
+import '../utils/Extensions/string_extensions.dart';
 import '../utils/appWidget.dart';
 
 class BookmarkComponent extends StatefulWidget {
@@ -60,9 +61,9 @@ class BookmarkComponentState extends State<BookmarkComponent> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(parseHtmlStringWidget(widget.data.name!.trim()), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, style: boldTextStyle()),
+                    Text(parseHtmlStringWidget(widget.data.name.validate().trim()), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, style: boldTextStyle()),
                     4.height,
-                    Text(parseHtmlStringWidget(widget.data.description!.trim()), overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, maxLines: 2, style: secondaryTextStyle()),
+                    Text(parseHtmlStringWidget(widget.data.description.validate().trim()), overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, maxLines: 2, style: secondaryTextStyle()),
                     if (widget.progress != null) ...[
                       8.height,
                       Row(
@@ -107,9 +108,9 @@ class BookmarkComponentState extends State<BookmarkComponent> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(parseHtmlStringWidget(widget.data.name!.trim()), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, style: boldTextStyle()),
+                    Text(parseHtmlStringWidget(widget.data.name.validate().trim()), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, style: boldTextStyle()),
                     4.height,
-                    Text(parseHtmlStringWidget(widget.data.description!.trim()), overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, maxLines: 1, style: secondaryTextStyle()),
+                    Text(parseHtmlStringWidget(widget.data.description.validate().trim()), overflow: TextOverflow.ellipsis, textAlign: TextAlign.justify, maxLines: 1, style: secondaryTextStyle()),
                   ],
                 ).paddingAll(10)
               ],

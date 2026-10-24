@@ -8,6 +8,7 @@ import '../network/NetworkUtils.dart';
 import '../utils/constant.dart';
 import '../utils/Extensions/string_extensions.dart';
 import '../utils/Extensions/shared_pref.dart';
+import 'package:screen_protector/screen_protector.dart';
 
 Future<List<Category>> getCategories() async {
   Iterable it = await (handleResponse(await buildHttpResponse('category.php?limit=$CATEGORY_LIMIT')));
@@ -32,6 +33,18 @@ Future<DashboardResponse> getDashboard() async {
       await setValue(PDF_AD_PAGE_INTERVAL, res.appconfiguration!.pdfAdPageInterval ?? 5);
       await setValue(MIN_APP_VERSION_CODE, res.appconfiguration!.minAppVersionCode ?? 1);
       await setValue(PLAY_STORE_URL, res.appconfiguration!.playStoreUrl.validate());
+      await setValue(ADDON_BANNER_IMAGE, res.appconfiguration!.addonBannerImage.validate());
+      await setValue(ADDON_BANNER_URL, res.appconfiguration!.addonBannerUrl.validate());
+      
+      int allowScreenshot = res.appconfiguration!.allowScreenshot ?? 0;
+      await setValue(ALLOW_SCREENSHOT, allowScreenshot);
+      if (Platform.isAndroid) {
+        if (allowScreenshot == 0) {
+          await ScreenProtector.protectDataLeakageOn();
+        } else {
+          await ScreenProtector.protectDataLeakageOff();
+        }
+      }
     }
 
     if (res.adsconfiguration != null) {

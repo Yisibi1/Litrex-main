@@ -126,6 +126,9 @@ class Appconfiguration {
   int? pdfAdPageInterval;
   int? minAppVersionCode;
   String? playStoreUrl;
+  String? addonBannerImage;
+  String? addonBannerUrl;
+  int? allowScreenshot;
 
   Appconfiguration(
       {this.facebook,
@@ -142,7 +145,10 @@ class Appconfiguration {
         this.adRewardCoins,
         this.pdfAdPageInterval,
         this.minAppVersionCode,
-        this.playStoreUrl});
+        this.playStoreUrl,
+        this.addonBannerImage,
+        this.addonBannerUrl,
+        this.allowScreenshot});
 
   Appconfiguration.fromJson(Map<String, dynamic> json) {
     facebook = json['facebook'];
@@ -160,6 +166,9 @@ class Appconfiguration {
     pdfAdPageInterval = json['pdf_ad_page_interval'] is String ? int.tryParse(json['pdf_ad_page_interval']) : json['pdf_ad_page_interval'];
     minAppVersionCode = json['min_app_version_code'] is String ? int.tryParse(json['min_app_version_code']) : json['min_app_version_code'];
     playStoreUrl = json['play_store_url'];
+    addonBannerImage = json['addon_banner_image'];
+    addonBannerUrl = json['addon_banner_url'];
+    allowScreenshot = json['allow_screenshot'] is String ? int.tryParse(json['allow_screenshot']) : json['allow_screenshot'];
   }
 
   Map<String, dynamic> toJson() {
@@ -178,7 +187,10 @@ class Appconfiguration {
     data['ad_reward_coins'] = adRewardCoins;
     data['pdf_ad_page_interval'] = pdfAdPageInterval;
     data['min_app_version_code'] = minAppVersionCode;
-    data['play_store_url'] = playStoreUrl;
+    data['playStoreUrl'] = playStoreUrl;
+    data['addon_banner_image'] = addonBannerImage;
+    data['addon_banner_url'] = addonBannerUrl;
+    data['allow_screenshot'] = allowScreenshot;
     return data;
   }
 }
@@ -392,10 +404,11 @@ class AppSlider {
   String? url;
   String? image;
   String? status;
+  String? position;
   String? imageUrl;
 
   AppSlider(
-      {this.id, this.title, this.url, this.image, this.status, this.imageUrl});
+      {this.id, this.title, this.url, this.image, this.status, this.position, this.imageUrl});
 
   AppSlider.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -403,6 +416,7 @@ class AppSlider {
     url = json['url'];
     image = json['image'];
     status = json['status'];
+    position = json['position'];
     imageUrl = json['image_url'];
   }
 
@@ -413,6 +427,7 @@ class AppSlider {
     data['url'] = url;
     data['image'] = image;
     data['status'] = status;
+    data['position'] = position;
     data['image_url'] = imageUrl;
     return data;
   }
@@ -531,8 +546,10 @@ class Book {
   String? categoryName;
   String? authorName;
   String? authorImage;
+  String? authorBio;
   String? isPremium;
   int? coinPrice;
+  int? isVip;
   bool? isUnlocked;
   String? unlockExpiresAt;
   // Tracks which addon this book came from (null = built-in library)
@@ -554,8 +571,10 @@ class Book {
         this.categoryName,
         this.authorName,
         this.authorImage,
+        this.authorBio,
         this.isPremium,
         this.coinPrice,
+        this.isVip,
         this.isUnlocked,
         this.unlockExpiresAt,
         this.addonSource});
@@ -576,8 +595,14 @@ class Book {
     categoryName = json['category_name'];
     authorName = json['author_name'];
     authorImage = json['author_image'];
+    authorBio = json['author_bio'];
+    isVip = json['is_vip'] is int ? json['is_vip'] : int.tryParse(json['is_vip']?.toString() ?? json['vip']?.toString() ?? '0');
     isPremium = json['is_premium']?.toString();
     coinPrice = json['coin_price'] is String ? int.tryParse(json['coin_price']) : json['coin_price'];
+    if (isVip == 1) {
+      coinPrice = 0;
+      isPremium = '1';
+    }
     isUnlocked = (json['is_unlocked'] == 1 || json['is_unlocked'] == '1' || json['is_unlocked'] == true || json['is_unlocked'] == 'true');
     unlockExpiresAt = json['unlock_expires_at'];
     addonSource = json['addon_source'];
@@ -602,6 +627,7 @@ class Book {
     data['author_image'] = authorImage;
     data['is_premium'] = isPremium;
     data['coin_price'] = coinPrice;
+    data['is_vip'] = isVip;
     data['is_unlocked'] = isUnlocked;
     data['unlock_expires_at'] = unlockExpiresAt;
     data['addon_source'] = addonSource;

@@ -282,31 +282,25 @@ class ViewAllScreenState extends State<ViewAllScreen> {
                 : SizedBox(),
         body: Stack(
           children: [
-            SingleChildScrollView(
+            ListView.builder(
               controller: scrollController,
-              child: ListView.builder(
-                shrinkWrap: true,
-                primary: false,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: mBookList.length + (mBookList.length ~/ 5),
-                padding: EdgeInsets.all(12),
-                itemBuilder: (_, i) {
-                  if ((i + 1) % 6 == 0) {
-                    return NativeAdWidget();
-                  }
-                  
-                  int bookIndex = i - (i ~/ 6);
-                  if (bookIndex >= mBookList.length) return SizedBox();
+              itemCount: mBookList.length + (mBookList.length ~/ 5),
+              padding: EdgeInsets.all(12),
+              itemBuilder: (_, i) {
+                if ((i + 1) % 6 == 0) {
+                  return NativeAdWidget();
+                }
+                
+                int bookIndex = i - (i ~/ 6);
+                if (bookIndex >= mBookList.length) return SizedBox();
 
-                  return ItemWidget(
-                    mBookList[bookIndex],
-                    onTap: () async {
-                      BookDetailScreen(data: mBookList[bookIndex]).launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
-                    },
-                  );
-                },
-
-              ),
+                return ItemWidget(
+                  mBookList[bookIndex],
+                  onTap: () async {
+                    BookDetailScreen(data: mBookList[bookIndex]).launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
+                  },
+                );
+              },
             ),
             if (!appStore.isLoading && mBookList.isEmpty) noDataWidget(context).center(),
             mProgress().center().visible(appStore.isLoading),

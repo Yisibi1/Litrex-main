@@ -9,6 +9,17 @@ import '../../utils/Extensions/context_extensions.dart';
 import '../../utils/Extensions/decorations.dart';
 import '../../utils/Extensions/int_extensions.dart';
 import '../../utils/Extensions/text_styles.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import '../../main.dart';
+import '../../network/AuthApis.dart';
+import '../../utils/Extensions/Commons.dart';
+import '../../utils/Extensions/Widget_extensions.dart';
+import '../../utils/Extensions/context_extensions.dart';
+import '../../utils/Extensions/decorations.dart';
+import '../../utils/Extensions/int_extensions.dart';
+import '../../utils/Extensions/text_styles.dart';
 import '../../utils/colors.dart';
 import '../SettingScreen.dart';
 import '../BookmarkScreen.dart';
@@ -17,6 +28,7 @@ import 'LoginScreen.dart';
 import '../PremiumScreen.dart';
 import '../HelpSupportScreen.dart';
 import '../DownloadScreen.dart';
+import '../MyQuotesScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   static String tag = '/ProfileScreen';
@@ -366,6 +378,14 @@ class ProfileScreenState extends State<ProfileScreen> {
                     title: language.lblBookmarks,
                     subtitle: language.lblYourBookmarks,
                     onTap: () => BookmarkScreen().launch(context),
+                  ),
+                  
+                  // My Quotes
+                  _buildMenuItem(
+                    icon: Icons.format_quote_rounded,
+                    title: language.lblMyQuotes,
+                    subtitle: language.lblQuoteDesigner,
+                    onTap: () => MyQuotesScreen().launch(context),
                   ),
                   
                   // Ayarlar

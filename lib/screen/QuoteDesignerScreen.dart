@@ -11,12 +11,20 @@ import '../utils/Extensions/text_styles.dart';
 import '../utils/colors.dart';
 import '../utils/Extensions/Commons.dart';
 import '../utils/Extensions/int_extensions.dart';
+import '../utils/images.dart';
+
+import '../main.dart';
+import '../model/QuoteModel.dart';
+import '../store/QuoteService.dart';
+import 'package:intl/intl.dart';
 
 class QuoteDesignerScreen extends StatefulWidget {
   final String quoteText;
   final String bookTitle;
+  final bool isNew;
+  final int? initialColorIndex;
 
-  const QuoteDesignerScreen({Key? key, required this.quoteText, required this.bookTitle}) : super(key: key);
+  const QuoteDesignerScreen({Key? key, required this.quoteText, required this.bookTitle, this.isNew = true, this.initialColorIndex}) : super(key: key);
 
   @override
   _QuoteDesignerScreenState createState() => _QuoteDesignerScreenState();
@@ -35,6 +43,28 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
     [Color(0xFFFDC830), Color(0xFFF37335)], // Orange
     [Color(0xFFff9a9e), Color(0xFFfecfef)], // Pastel Pink
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialColorIndex != null) {
+      _selectedGradientIndex = widget.initialColorIndex!;
+    }
+    
+    if (widget.isNew) {
+      _saveQuote();
+    }
+  }
+
+  Future<void> _saveQuote() async {
+    final quote = QuoteModel(
+      text: widget.quoteText,
+      bookTitle: widget.bookTitle,
+      colorIndex: _selectedGradientIndex,
+      date: DateFormat('dd MMM yyyy').format(DateTime.now()),
+    );
+    await QuoteService.addQuote(quote);
+  }
 
   Future<void> _shareQuote() async {
     setState(() {
@@ -55,13 +85,17 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
       await imagePath.writeAsBytes(pngBytes);
 
       // 3. Şəkli paylaş
+      String appLink = Platform.isIOS 
+          ? "https://apps.apple.com/us/app/litrex-e-kitap-oku/id6774904816"
+          : "https://play.google.com/store/apps/details?id=com.litrex.ebook";
+
       await Share.shareXFiles(
         [XFile(imagePath.path)],
-        text: '"${widget.quoteText}"\n\n— ${widget.bookTitle}\n\nLitrex ilə oxu: [Tətbiq Linki]',
+        text: '"${widget.quoteText}"\n\n— ${widget.bookTitle}\n\nLitrex ile oku: $appLink',
       );
     } catch (e) {
       print("Error sharing quote: $e");
-      toast("Paylaşarkən xəta baş verdi");
+      toast("Paylaşırken hata oluştu");
     } finally {
       setState(() {
         _isExporting = false;
@@ -72,7 +106,7 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget("Sitat Dizayneri", color: primaryColor, textColor: Colors.white, showBack: true),
+      appBar: appBarWidget(language.lblQuoteDesigner, color: primaryColor, textColor: Colors.white, showBack: true),
       body: Column(
         children: [
           Expanded(
@@ -99,26 +133,36 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.format_quote_rounded, color: Colors.white.withOpacity(0.5), size: 60),
-                        16.height,
-                        Text(
-                          widget.quoteText,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: widget.quoteText.length > 100 ? 20 : 26,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'serif',
-                            height: 1.5,
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Icon(Icons.format_quote_rounded, color: Colors.white.withOpacity(0.3), size: 70),
+                        ),
+                        8.height,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text(
+                            widget.quoteText,
+                            textAlign: widget.quoteText.length > 80 ? TextAlign.left : TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: widget.quoteText.length > 100 ? 18 : 22,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.italic,
+                              height: 1.6,
+                              letterSpacing: 0.5,
+                            ),
                           ),
                         ),
-                        32.height,
+                        24.height,
                         Container(
-                          width: 50,
-                          height: 2,
-                          color: Colors.white54,
+                          width: 40,
+                          height: 3,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                        16.height,
+                        24.height,
                         Text(
                           widget.bookTitle.toUpperCase(),
                           textAlign: TextAlign.center,
@@ -126,7 +170,7 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
                             color: Colors.white.withOpacity(0.9),
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            letterSpacing: 2,
+                            letterSpacing: 2.5,
                           ),
                         ),
                         
@@ -135,7 +179,16 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("LITREX", style: boldTextStyle(color: Colors.white54, size: 12, letterSpacing: 1.5)),
+                            Text(
+                              "LITREX",
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 8.0,
+                                fontFamily: 'serif',
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -157,7 +210,7 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Arxa Plan Seçin", style: boldTextStyle(size: 16)),
+                Text(language.lblChooseBackground, style: boldTextStyle(size: 16)),
                 16.height,
                 SizedBox(
                   height: 60,
@@ -205,7 +258,7 @@ class _QuoteDesignerScreenState extends State<QuoteDesignerScreen> {
                     icon: _isExporting 
                         ? SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
                         : Icon(Icons.share, color: Colors.white),
-                    label: Text(_isExporting ? "Hazırlanır..." : "Şəkil Kimi Paylaş", style: boldTextStyle(color: Colors.white, size: 16)),
+                    label: Text(_isExporting ? "..." : language.lblShareAsImage, style: boldTextStyle(color: Colors.white, size: 16)),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
                       padding: EdgeInsets.symmetric(vertical: 16),

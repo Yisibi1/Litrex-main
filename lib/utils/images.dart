@@ -1,4 +1,5 @@
-const ic_logo = 'asset/ic_logo.png';
+const ic_logo = 'asset/litrex_logo.png';
+const litrex_logo = 'asset/litrex_logo.png';
 const ic_facebook = "asset/ic_facebook.png";
 const ic_insta = "asset/ic_insta.png";
 const ic_twitter = "asset/ic_twitter.png";

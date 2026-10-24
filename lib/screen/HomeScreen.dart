@@ -44,6 +44,7 @@ import '../utils/OfflineReadingService.dart';
 import '../component/CoinBalanceComponent.dart';
 import '../component/RatingDialog.dart';
 import '../component/StreakBalanceComponent.dart';
+import '../component/AddonBannerWidget.dart';
 
 import 'dart:io';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -66,15 +67,18 @@ class HomeScreenState extends State<HomeScreen> {
   List<Book> mFeaturedList = [];
   List<Book> mSuggestedList = [];
   List<String> mCategoryId = [];
-  List<AppSlider> mSliderList = [];
+  List<AppSlider> mTopSliderList = [];
+  List<AppSlider> mCenterSliderList = [];
   List<Author> mAuthorList = [];
 
-  int? currentIndex = 0;
+  int? topCurrentIndex = 0;
+  int? centerCurrentIndex = 0;
   bool? isLoading = true;
   String? mErrorMsg = "";
   int downloadCount = 0;
 
-  PageController? pageController;
+  PageController? topPageController;
+  PageController? centerPageController;
 
   // --- Reklam dəyişənləri ---
   BannerAd? _bannerAd;
@@ -151,18 +155,22 @@ class HomeScreenState extends State<HomeScreen> {
       setState(() {});
     });
 
-    getDashboard().then((res) {
-      mSliderList = res.slider!;
+    getDashboard().then((res) async {
+      if (res.slider != null) {
+        mTopSliderList = res.slider!.where((s) => s.position == 'top' || s.position == null || s.position!.isEmpty).toList();
+        mCenterSliderList = res.slider!.where((s) => s.position == 'center').toList();
+      }
       mPopularList = res.popularBook!;
       mLatestList = res.latestBook!;
       mFeaturedList = res.featuredBook!;
       mCategoryList = res.category!;
       mAuthorList = res.author!;
-      isLoading = false;
-      setState(() {});
 
-      // --- Addon kitablarını birləşdir ---
-      _mergeAddonBooks();
+      // --- Addon kitablarını birləşdir və bitməsini gözlə ---
+      await _mergeAddonBooks();
+      
+      isLoading = false;
+      if (mounted) setState(() {});
       
       // --- Məcburi Yenilənmə (Force Update) ---
       _checkForceUpdate();
@@ -357,13 +365,14 @@ class HomeScreenState extends State<HomeScreen> {
       print("ADDON DEBUG: Dashboard status: ${dashRes.statusCode}, body length: ${dashRes.body.length}");
       if (dashRes.statusCode != 200) return;
       var dashData = jsonDecode(dashRes.body);
-
       // 3. Kitabları mövcud siyahılara əlavə et
       bool dataChanged = false;
+      String addonName = manifest['name'] ?? 'Harici Eklenti';
       
       if (dashData['latest_book'] != null) {
         var addonBooks = (dashData['latest_book'] as List).map((e) {
           Book book = Book.fromJson(e);
+          book.addonSource = addonName;
           _mapCategory(book, e['category_name'] ?? '');
           return book;
         }).toList();
@@ -381,6 +390,7 @@ class HomeScreenState extends State<HomeScreen> {
       if (dashData['popular_book'] != null) {
         var addonBooks = (dashData['popular_book'] as List).map((e) {
           Book book = Book.fromJson(e);
+          book.addonSource = addonName;
           _mapCategory(book, e['category_name'] ?? '');
           return book;
         }).toList();
@@ -397,6 +407,7 @@ class HomeScreenState extends State<HomeScreen> {
       if (dashData['featured_book'] != null) {
         var addonBooks = (dashData['featured_book'] as List).map((e) {
           Book book = Book.fromJson(e);
+          book.addonSource = addonName;
           _mapCategory(book, e['category_name'] ?? '');
           return book;
         }).toList();
@@ -485,26 +496,40 @@ class HomeScreenState extends State<HomeScreen> {
         backgroundColor: primaryColor,
         elevation: 0,
         centerTitle: false,
-        title: Text(AppName,
-            style: boldTextStyle(size: 20, color: Colors.white)),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: radius(10),
+                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2))],
+              ),
+              child: ClipRRect(
+                borderRadius: radius(10),
+                child: Image.asset('asset/litrex_logo.png', height: 34, width: 34, fit: BoxFit.cover),
+              ),
+            ),
+          ],
+        ),
         actions: [
           StreakBalanceComponent(),
           CoinBalanceComponent(),
           if (!authStore.isPremiumUser)
           Container(
-            margin: EdgeInsets.all(8),
+            margin: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.amber, Colors.orange]),
+              gradient: LinearGradient(colors: [Color(0xFFFFD700), Color(0xFFFF8C00)]),
               borderRadius: radius(20),
+              boxShadow: [BoxShadow(color: Colors.orange.withOpacity(0.4), blurRadius: 4, offset: Offset(0, 2))],
             ),
             child: InkWell(
               onTap: () { PremiumScreen().launch(context); },
               borderRadius: radius(20),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 child: Row(
                   children: [
-                     Icon(Icons.diamond, color: Colors.white, size: 16),
+                     Icon(Icons.workspace_premium_rounded, color: Colors.white, size: 16),
                      4.width,
                      Text("Premium", style: boldTextStyle(color: Colors.white, size: 12)),
                   ],
@@ -534,27 +559,26 @@ class HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Slider
-                  if (mSliderList.isNotEmpty)
+                  // Top Slider (Books)
+                  if (mTopSliderList.isNotEmpty)
                     Column(
                       children: [
                         SizedBox(
                           height: context.height() * 0.25,
                           width: context.width(),
                           child: PageView.builder(
-                            itemCount: mSliderList.length,
-                            controller: pageController,
+                            itemCount: mTopSliderList.length,
+                            controller: topPageController,
                             itemBuilder: (context, i) {
-                              return HomeSliderComponent(mSliderList[i]);
+                              return HomeSliderComponent(mTopSliderList[i]);
                             },
                             onPageChanged: (int i) {
-                              currentIndex = i;
+                              topCurrentIndex = i;
                               setState(() {});
                             },
                           ),
                         ),
-                        dotIndicator(mSliderList, currentIndex)
-                            .paddingTop(8),
+                        dotIndicator(mTopSliderList, topCurrentIndex).paddingTop(8),
                         16.height,
                       ],
                     ),
@@ -669,8 +693,30 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
 
                   NativeAdWidget(),
-
-
+                  
+                  // Slider (Center Addon Banner)
+                  if (mCenterSliderList.isNotEmpty)
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: context.height() * 0.22,
+                          width: context.width(),
+                          child: PageView.builder(
+                            itemCount: mCenterSliderList.length,
+                            controller: centerPageController,
+                            itemBuilder: (context, i) {
+                              return HomeSliderComponent(mCenterSliderList[i]);
+                            },
+                            onPageChanged: (int i) {
+                              centerCurrentIndex = i;
+                              setState(() {});
+                            },
+                          ),
+                        ),
+                        dotIndicator(mCenterSliderList, centerCurrentIndex).paddingTop(8),
+                        16.height,
+                      ],
+                    ),
                   // Popular
                   if (mPopularList.isNotEmpty)
                     Column(

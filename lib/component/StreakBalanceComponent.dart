@@ -30,23 +30,21 @@ class StreakBalanceComponent extends StatelessWidget {
           },
           borderRadius: radius(20),
           child: Container(
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            margin: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.15),
               borderRadius: radius(20),
-              boxShadow: [
-                BoxShadow(color: Colors.black12, blurRadius: 4, spreadRadius: 0),
-              ],
+              border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.local_fire_department_rounded, size: 18, color: streak > 0 ? Colors.orange : Colors.grey),
-                6.width,
+                Icon(Icons.local_fire_department_rounded, size: 16, color: streak > 0 ? Color(0xFFFFB74D) : Colors.white70),
+                4.width,
                 Text(
                   '$streak',
-                  style: boldTextStyle(color: streak > 0 ? Colors.deepOrange : Colors.grey, size: 14),
+                  style: boldTextStyle(color: Colors.white, size: 12),
                 ),
               ],
             ),

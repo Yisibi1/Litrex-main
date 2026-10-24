@@ -338,6 +338,21 @@ class LanguageVi extends BaseLanguage {
   @override String get lblRateNow => "Rate Now";
   @override 
   // Streak Screen
+  @override 
+  // Quotes
+  @override String get lblDesignQuote => "Design Quote";
+  @override String get lblQuoteDesigner => "Quote Studio";
+  @override String get lblChooseBackground => "Choose Background";
+  @override String get lblShareAsImage => "Share as Image";
+  @override String get lblMyQuotes => "My Quotes";
+    @override String get lblAllQuotes => "All";
+  @override String get lblNoQuotesFound => "You haven't saved any quotes yet.";
+
+  @override 
+  @override String get lblNoQuoteForThisBook => "No quotes for this book";
+  @override String get lblDeleteQuoteConfirmTitle => "Are you sure you want to delete?";
+  @override String get lblDeleteQuoteConfirmMsg => "This quote will be deleted.";
+
   @override String get lblStreakDetails => "Streak Details";
   @override String get lblDay => "Day";
   @override String get lblThisWeek => "This Week";
@@ -364,4 +379,11 @@ class LanguageVi extends BaseLanguage {
   @override
   String get lblMaybeLater => "Maybe Later";
 
+  // VIP Exclusive Premium
+  @override String get lblVipPremium => "VIP Exclusive";
+  @override String get lblVipPremiumTitle => "VIP Premium Content";
+  @override String get lblVipPremiumDesc => "This book is exclusive to Premium members. Subscribe to enjoy unlimited and ad-free reading!";
+  @override String get lblVipExclusiveBadge => "VIP";
+  @override String get lblSubscribeToUnlock => "Read with Premium";
+  @override String get lblCoinsNotAccepted => "Coins cannot be used for this exclusive book";
 }
